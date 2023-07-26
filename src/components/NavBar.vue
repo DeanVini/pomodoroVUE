@@ -17,7 +17,7 @@
             </button>
         </div>
         <button class="bg-[#0EABD9] w-[90px] h-[45px] border-4 rounded-lg  border-[#0EABD9] active:bg-[#0EABD9] active:border-[#0EABD9] hover:bg-[#0eaad9d8] hover:border-[#0eaad900] transition duration-300">
-            <h1 class="font-bold">Logout</h1>
+            <h1 class="font-bold" @click="logout()">Logout</h1>
         </button>
     </div>
 </div>    
@@ -25,5 +25,12 @@
 
 <script setup>
 //"bg-[#F4FCFD] w-[90px] h-[50px] border-4 border-b-[#0EABD9] border-l-[#0EABD9] border-t-[#007AB7] border-r-[#007AB7] rounded-full"
+
+import router from "../router";
+
+function logout(){
+    localStorage.clear();
+    router.push('/login')
+}
 
 </script>

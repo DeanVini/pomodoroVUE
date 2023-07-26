@@ -5,6 +5,12 @@
       "name": "Admin",
       "password": "Admin@12345",
       "email": "admin@admin.com"
+    },
+    {
+      "name": "sec",
+      "password": "sec123",
+      "email": "sec@first",
+      "id": 1
     }
   ],
   "times": [
