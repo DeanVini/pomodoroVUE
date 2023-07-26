@@ -77,15 +77,12 @@ import router from "../router";
 import BaseButton from "../components/Forms/BaseButton.vue";
 
 let error = ref(false)
-let filled = ref(false)
 let email = ref('');
 let password = ref('');
 let startLength = ref()
 
 async function logar(){
     let response = await axios.get(`http://localhost:3000/users?email=${email.value}&password=${password.value}`);
-
-    console.log(response.data)
     
     if((response.status == 200 || response.status == 201) && response.data.length > 0){
         localStorage.setItem('user-info', response.data)
@@ -100,7 +97,6 @@ async function logar(){
 
 function isFilled(event){
     startLength.value = event.target.value.length
-    console.log(startLength.value)
     if(event.target.value.length > 0){
         error.value = false
     }
