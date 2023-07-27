@@ -14,27 +14,12 @@
                 <p v-if="email.length == 0 && password.length == 0 && error" class="text-center mb-4 text-red-500">Preencha todos os campos!!</p>
                 <p v-else-if="error" class="text-center mb-4 text-red-500">Email ou senha inválidos!!</p>
                 <label for="email-address-icon" :class="error ? 'animate-shake-r' :  '' " class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white">Seu Email:</label>
-                <div class="relative " :class="error ? 'animate-shake-r' :  '' " >
-                  <div class=" absolute pr-[5px] border-gray-500 inset-y-2 left-0 flex self-center items-center pl-3.5 pointer-events-none border-r-[2px]">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                      <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-                      <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
-                    </svg>
-                  </div>
-                  <input type="text"
-                         @input="isFilled"
-                         v-model="email"
-                         id="email-address-icon"
-                         :class="error ? 'transition duration-700 border border-red-500' :  '' " 
-                         class="border text-sm rounded-lg block w-[300px] pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[45px]" 
-                         placeholder="name@email.com"
-                         required
-                         >
+                <div class="w-[300px]">
+                    <BaseInput  type="email" @update="(event) => {email = event}" @input="isFilled" :error="error" placeholder="name@email.com"/>
                 </div>
-
                 <label for="password-adress" :class="error ? 'animate-shake-l' :  '' " class="block mb-2 text-sm font-medium text-gray-900 dark:text-white pl-1 pt-[20px]">Sua Senha:</label>
                 <div>
-                    <BaseInput v-model="password" type="password" :error="error"/>
+                    <BaseInput @update="(event) => {password = event}" @input="isFilled" type="password" :error="error" placeholder="Sua senha"/>
                 </div>
             </div>
             
@@ -79,14 +64,15 @@ async function logar(){
         
         return
     }
-    
+
     error.value = true;
+
 
 }
 
 function isFilled(event){
-    startLength.value = event.target.value.length
-    if(event.target.value.length > 0){
+    startLength.value = event.length
+    if(event.length > 0){
         error.value = false
     }
     startLength.value = 0
