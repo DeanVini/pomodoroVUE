@@ -12,15 +12,15 @@
             </div>
             <div class="flex items-center mb-10">
                 <div class="w-1/3 h-[1px] border-[2px] rounded-full"></div>
-                <div class="w-1/3">
+               <div class="w-1/3">
                     <h1 class="text-center font-bold">Crie sua conta</h1>
                 </div>
                 <div class="w-1/3 h-[1px] border-[2px] rounded-full"></div>
             </div>
             <div class="mr-10 ml-10 gap-3 flex flex-col">
-                <div class="flex">
+                <div class="flex gap-5">
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white" for="name">Seu Nome:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white" for="name">Nome:</label>
                         <BaseInput id="name" placeholder="Seu nome..."/>
                     </div>
                     <div>
@@ -29,8 +29,8 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white" for="name">Usuário:</label>
-                    <BaseInput id="surname" placeholder="Seu nome de usuário..."/>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white" for="username">Usuário:</label>
+                    <BaseInput id="username" placeholder="Seu nome de usuário..."/>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white" for="email">Email:</label>

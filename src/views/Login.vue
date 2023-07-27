@@ -43,11 +43,11 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
 import router from "../router";
 import BaseButton from "../components/Forms/BaseButton.vue";
 import BaseInput from "../components/Forms/BaseInput.vue";
+import { injector } from "../utils/injector";
 
 let error = ref(false)
 let email = ref('');
@@ -56,7 +56,8 @@ let startLength = ref()
 
 
 async function logar(){
-    let response = await axios.get(`http://localhost:3000/users?email=${email.value}&password=${password.value}`);
+    let response = await injector.login.get(email.value, password.value);
+    console.log(response);
     
     if((response.status == 200 || response.status == 201) && response.data.length > 0){
         localStorage.setItem('user-info', response.data)
