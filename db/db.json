@@ -2,15 +2,19 @@
   "users": [
     {
       "id": 0,
-      "name": "Admin",
+      "username": "Admin",
       "password": "Admin@12345",
-      "email": "admin@admin.com"
+      "email": "admin@admin.com",
+      "name" : "Admin",
+      "surname" : "Admin"
     },
     {
-      "name": "sec",
+      "username": "sec",
       "password": "sec123",
       "email": "sec@first",
-      "id": 1
+      "id": 1,
+      "name" : "test",
+      "surname" : "test"
     }
   ],
   "times": [
