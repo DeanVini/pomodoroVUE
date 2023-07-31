@@ -1,20 +1,28 @@
 {
   "users": [
     {
-      "id": 0,
-      "username": "Admin",
-      "password": "Admin@12345",
-      "email": "admin@admin.com",
-      "name" : "Admin",
-      "surname" : "Admin"
+      "name": "Dean",
+      "surname": "Meneses",
+      "username": "DeanVini",
+      "email": "deanvinicius2003@gmail.com",
+      "password": "dean123",
+      "id": 0
     },
     {
-      "username": "sec",
-      "password": "sec123",
-      "email": "sec@first",
-      "id": 1,
-      "name" : "test",
-      "surname" : "test"
+      "name": "efaefefesf",
+      "surname": "sefasefasefa",
+      "username": "sefasefasefase",
+      "email": "fasefasefasefasefa",
+      "password": "efasefasefaef",
+      "id": 1
+    },
+    {
+      "name": "feafsefa",
+      "surname": "efasefefas",
+      "username": "efasefasef",
+      "email": "asefasefase",
+      "password": "fasefasefase",
+      "id": 2
     }
   ],
   "times": [
