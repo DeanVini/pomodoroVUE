@@ -1,5 +1,5 @@
 <template>
-    <div class="lg:flex-row flex justify-center flex-col-reverse items-center w-screen h-screen">
+    <div class="lg:flex-row flex justify-center flex-col-reverse items-center w-screen h-screen" @keyup.enter="logar()">
         <div class="flex flex-col r w-[500px] h-[800px] bg-[#ffffff0c] border-[#ffffff36] border-y  border-l-0 rounded-l-lg">
             <div class="pr-10 flex  mt-10 self-center">
                 <img src="../assets/time-eco-svgrepo-com.svg" class="mb-2 mt-2 w-[60px] h-[60px]" alt="">
@@ -52,7 +52,6 @@ import { injector } from "../utils/injector";
 let error = ref(false)
 let email = ref('');
 let password = ref('');
-let startLength = ref()
 
 
 async function logar(){
@@ -72,10 +71,8 @@ async function logar(){
 }
 
 function isFilled(event){
-    startLength.value = event.length
     if(event.length > 0){
         error.value = false
     }
-    startLength.value = 0
 }
 </script>
