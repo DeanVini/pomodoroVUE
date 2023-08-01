@@ -5,24 +5,8 @@
       "surname": "Meneses",
       "username": "DeanVini",
       "email": "deanvinicius2003@gmail.com",
-      "password": "dean123",
-      "id": 0
-    },
-    {
-      "name": "efaefefesf",
-      "surname": "sefasefasefa",
-      "username": "sefasefasefase",
-      "email": "fasefasefasefasefa",
-      "password": "efasefasefaef",
+      "password": "dean@12345",
       "id": 1
-    },
-    {
-      "name": "feafsefa",
-      "surname": "efasefefas",
-      "username": "efasefasef",
-      "email": "asefasefase",
-      "password": "fasefasefase",
-      "id": 2
     }
   ],
   "times": [
