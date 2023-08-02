@@ -4,7 +4,7 @@
     <svg viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
         <g>
             <g>
-              <text fill="#e7f8fd" x="10%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
+              <text class="" fill="#e7f8fd" x="10%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
             </g>
 
             <linearGradient 
@@ -25,7 +25,7 @@
             <circle id="basePath" class=" rotate-270" cx="-50" cy="50" r="45" stroke-linecap="round" :style="{
                 'stroke': 'url(#gradient)',
                 'stroke-dasharray': '283',
-                'stroke-dashoffset': '283'
+                'stroke-dashoffset': `${dashoffset}` 
             }"/>
         </g>
         
@@ -35,6 +35,8 @@
 </template>
 
 <script setup>
+import { ref, watch, watchPostEffect } from "vue";
+
 
 const props = defineProps({
     minutes: {
@@ -42,8 +44,26 @@ const props = defineProps({
     },
     seconds:{
       type: Number
+    },
+    initialTime: {
+      type: Number,
+      required: true
     }
 })
+
+let dashoffset = ref(283)
+let dashTime = ref(283/(props.initialTime * 60));
+
+
+watch(() => props.seconds, async (newSeconds) => {
+    if(props.minutes === props.initialTime && props.seconds === 0){
+      dashoffset.value = 283
+    }
+    else{
+      console.log(dashoffset.value)
+      dashoffset.value -= dashTime.value
+    }
+  });
 
 function formatTime(number){
     if(number < 10){
@@ -55,7 +75,7 @@ function formatTime(number){
 
 <style scoped>
 circle {
-  transition: all 1s linear;
+  transition: all 0.3s linear;
   fill: transparent;
   stroke-width: 3px;
 }

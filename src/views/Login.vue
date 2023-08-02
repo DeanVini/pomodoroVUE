@@ -25,7 +25,7 @@
             
             <div class="flex gap-5 self-center mt-4">
                 <BaseButton type="login" value="Logar" @click="logar()"/>
-                <BaseButton type="login" value="Registrar-se" @click="router.push('/register')"/>
+                <BaseButton width="100" type="login" value="Registrar-se" @click="router.push('/register')"/>
             </div>
             </div>
 

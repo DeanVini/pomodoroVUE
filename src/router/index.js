@@ -4,7 +4,7 @@ import Perfil from '../views/Perfil.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Pomodoro from '../views/Pomodoro.vue'
-import Sobre from '../views/Sobre.vue'
+import About from '../views/About.vue'
 
 const routes = [
     {path: '/',
@@ -35,7 +35,7 @@ const routes = [
     {
         path: '/sobre',
         name: 'Sobre',
-        component: Sobre
+        component: About
     }
 ]
 
