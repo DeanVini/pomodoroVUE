@@ -1,20 +1,20 @@
 {
   "users": [
     {
-      "id": 0,
-      "username": "Admin",
-      "password": "Admin@12345",
-      "email": "admin@admin.com",
-      "name" : "Admin",
-      "surname" : "Admin"
+      "name": "Dean",
+      "surname": "Meneses",
+      "username": "DeanVini",
+      "email": "deanvinicius2003@gmail.com",
+      "password": "dean@12345",
+      "id": 1
     },
     {
-      "username": "sec",
-      "password": "sec123",
-      "email": "sec@first",
-      "id": 1,
-      "name" : "test",
-      "surname" : "test"
+      "name": "Dean",
+      "surname": "Meneses",
+      "username": "DeanVInwwi",
+      "email": "deanvinicius20203@gmail.com",
+      "password": "dawdawdawda",
+      "id": 2
     }
   ],
   "times": [

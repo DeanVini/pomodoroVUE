@@ -10,8 +10,8 @@
                    @input="updateValue"
                    :value="startValue"
                    id="password-adress" 
-                   :class="error ? 'transition duration-700 border border-red-500' :  '' " 
-                   class="border text-sm rounded-lg block w-full pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[45px]" 
+                   :class="error ? 'transition duration-700 border border-red-500' :  'transition focus:ring-[#0EABD9] focus:border-[#0EABD9]  ' " 
+                   class="focus:outline-none border text-sm rounded-lg block w-full pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white h-[45px]" 
                    :placeholder="placeholder" 
                    required>
         </div>
@@ -28,8 +28,8 @@
                    :value="startValue"
                    @input="updateValue"
                    id="pemail-address-icon" 
-                   :class="error ? 'transition duration-700 border border-red-500' :  '' " 
-                   class="border text-sm rounded-lg block w-full pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[45px]" 
+                   :class="error ? 'transition duration-700 border border-red-500' :  'transition focus:ring-[#0EABD9] focus:border-[#0EABD9] ' " 
+                   class="focus:outline-none border text-sm rounded-lg block w-full pl-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white h-[45px]" 
                    :placeholder="placeholder" 
                    required>
         </div>
@@ -39,8 +39,8 @@
             <input type="text"
                    :value="startValue"
                    @input="updateValue" 
-                   :class="error ? 'transition duration-700 border border-red-500' :  '' " 
-                   class="border text-sm rounded-lg block w-full pl-3 pr-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[45px]" 
+                   :class="error ? 'transition duration-700 border border-red-500' :  'transition focus:ring-[#0EABD9] focus:border-[#0EABD9]' " 
+                   class="focus:outline-none border bg-gray-700 border-gray-600 placeholder-gray-400 text-white text-sm rounded-lg block w-full pl-3 pr-10 p-2.5 h-[45px]" 
                    :placeholder="placeholder" 
                    >
         </div>

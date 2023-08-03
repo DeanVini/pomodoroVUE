@@ -1,9 +1,7 @@
 <template>
-    
+    <NavBar/>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-
-
+import NavBar from '../components/NavBar.vue'
 </script>

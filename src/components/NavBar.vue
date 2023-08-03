@@ -6,27 +6,27 @@
     </div>
     <div class="flex font-medium text-base w-screen gap-3 pt-4 pl-[60px] h-[77px]">
         <div class="flex gap-5 w-[92%]">
-            <button class="hover:border-b-4 border-[#0EABD9]">
+            <button :class="actualRoute=='Pomodoro' ? 'border-b-4 border-[#0EABD9]'  : 'hover:border-b-4 border-[#0EABD9]'" @click="router.push('/pomodoro')">
                 <h1>Pomodoro</h1>
             </button>
-            <button class="hover:border-b-4 border-[#0EABD9]">
-                <h1>Perfil</h1>
-            </button>
-            <button class="hover:border-b-4 border-[#0EABD9]">
+            <button :class="actualRoute=='Sobre' ? 'border-b-4 border-[#0EABD9]'  : 'hover:border-b-4 border-[#0EABD9]'" @click="router.push('/sobre')">
                 <h1>Sobre</h1>
             </button>
+            <button :class="actualRoute=='Perfil' ? 'border-b-4 border-[#0EABD9]'  : 'hover:border-b-4 border-[#0EABD9]'" @click="router.push('/perfil')">
+                <h1>Perfil</h1>
+            </button>
         </div>
-        <button class="bg-[#0EABD9] w-[90px] h-[45px] border-4 rounded-lg  border-[#0EABD9] active:bg-[#0EABD9] active:border-[#0EABD9] hover:bg-[#0eaad9d8] hover:border-[#0eaad900] transition duration-300">
-            <h1 class="font-bold" @click="logout()">Logout</h1>
-        </button>
+        <BaseButton type="login" width="100" height="45" value="Logout" @click="logout()"/>
     </div>
 </div>    
 </template>
 
 <script setup>
-//"bg-[#F4FCFD] w-[90px] h-[50px] border-4 border-b-[#0EABD9] border-l-[#0EABD9] border-t-[#007AB7] border-r-[#007AB7] rounded-full"
 
 import router from "../router";
+import BaseButton from "./Forms/BaseButton.vue";
+
+let actualRoute = router.currentRoute.value.name
 
 function logout(){
     localStorage.clear();

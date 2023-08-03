@@ -1,5 +1,5 @@
 <template>
-    <div class="lg:flex-row flex justify-center flex-col-reverse items-center w-screen h-screen">
+    <div class="lg:flex-row flex justify-center flex-col-reverse items-center w-screen h-screen" @keyup.enter="logar()">
         <div class="flex flex-col r w-[500px] h-[800px] bg-[#ffffff0c] border-[#ffffff36] border-y  border-l-0 rounded-l-lg">
             <div class="pr-10 flex  mt-10 self-center">
                 <img src="../assets/time-eco-svgrepo-com.svg" class="mb-2 mt-2 w-[60px] h-[60px]" alt="">
@@ -25,7 +25,7 @@
             
             <div class="flex gap-5 self-center mt-4">
                 <BaseButton type="login" value="Logar" @click="logar()"/>
-                <BaseButton type="login" value="Registrar-se" @click="router.push('/register')"/>
+                <BaseButton width="100" type="login" value="Registrar-se" @click="router.push('/register')"/>
             </div>
             </div>
 
@@ -43,20 +43,20 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
 import router from "../router";
 import BaseButton from "../components/Forms/BaseButton.vue";
 import BaseInput from "../components/Forms/BaseInput.vue";
+import { injector } from "../utils/injector";
 
 let error = ref(false)
 let email = ref('');
 let password = ref('');
-let startLength = ref()
 
 
 async function logar(){
-    let response = await axios.get(`http://localhost:3000/users?email=${email.value}&password=${password.value}`);
+    let response = await injector.login.get(email.value, password.value);
+    console.log(response);
     
     if((response.status == 200 || response.status == 201) && response.data.length > 0){
         localStorage.setItem('user-info', response.data)
@@ -71,10 +71,9 @@ async function logar(){
 }
 
 function isFilled(event){
-    startLength.value = event.length
     if(event.length > 0){
         error.value = false
     }
-    startLength.value = 0
 }
+
 </script>

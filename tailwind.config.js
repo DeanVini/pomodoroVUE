@@ -39,6 +39,9 @@ export default {
                 transform: 'translate3d(-4px, 0, 0)'
             }
         }
+      },
+      rotate: {
+        '270': '270deg',
       }
     },
   },
