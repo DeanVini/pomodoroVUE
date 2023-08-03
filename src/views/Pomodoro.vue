@@ -1,21 +1,20 @@
 <template>
 <NavBar/>
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col items-center justify-center  w-full h-full">
 
-    <div class="flex justify-center items-center w-full h-full">
+    <div class="flex">
         <TimerProgressBar 
-            class="w-screen" 
+            class="" 
             :minutes="minutes"
             :seconds="seconds"
             @click="decress"
             :initialTime="initialTime"
-            
             />
         </div>
     </div>
-    <div class="w-full gap-6 flex flex-row justify-center self-center">
+    <div class="flex flex-row justify-center itens-center w-full gap-6 self-center">
         <BaseButton v-if="!started" type="start" value="Iniciar" @click="play()"/>
-        <BaseButton v-else type="stop" value="Parar" widthVal="100" heightVal="0" @click="stop()"/>
+        <BaseButton v-else type="stop" value="Parar" widthVal="300" heightVal="50" @click="stop()"/>
     </div>
 </template>
 

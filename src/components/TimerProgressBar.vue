@@ -1,10 +1,10 @@
 <template>
-<div class="flex">
+<div class="w-[350px] h-[350px] transition">
     
-    <svg viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 98 100" xmlns="http://www.w3.org/2000/svg" class="">
         <g>
             <g>
-              <text class="" fill="#e7f8fd" x="10%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
+              <text class="transition" fill="#e7f8fd" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
             </g>
 
             <linearGradient 
