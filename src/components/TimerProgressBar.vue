@@ -60,7 +60,6 @@ watch(() => props.seconds, async (newSeconds) => {
       dashoffset.value = 283
     }
     else{
-      console.log(dashoffset.value)
       dashoffset.value -= dashTime.value
     }
   });
