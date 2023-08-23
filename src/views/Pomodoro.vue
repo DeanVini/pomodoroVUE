@@ -1,5 +1,4 @@
 <template>
-<NavBar/>
 <div class="flex flex-col items-center justify-center  w-full h-full">
 
     <div class="flex">
@@ -12,7 +11,7 @@
             />
         </div>
     </div>
-    <div class="flex flex-row justify-center itens-center w-full gap-6 self-center">
+    <div class="flex flex-row justify-center mt-3 itens-center w-full gap-6 self-center">
         <BaseButton v-if="!started" type="start" value="Iniciar" @click="play()"/>
         <BaseButton v-else type="stop" value="Parar" widthVal="300" heightVal="50" @click="stop()"/>
     </div>
@@ -20,7 +19,7 @@
 
 <script setup>
 import TimerProgressBar from '../components/TimerProgressBar.vue';
-import NavBar from '../components/NavBar.vue'
+import NavBar from '../components/Global/NavBar.vue'
 import { ref, watch } from 'vue';
 import BaseButton from '../components/Forms/BaseButton.vue';
 
