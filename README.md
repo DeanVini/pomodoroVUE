@@ -10,6 +10,8 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 - ~~Create a "API" using Json Server~~
 - ~~Create login page~~
 - ~~Make login page functional~~
-- Create registration page
-- Make register page functional
+- ~~Create registration page~~
+- ~~Make register page functional~~
+- Create pomodoro's page
+- Create profile page
 - Create pomodoro's home page
