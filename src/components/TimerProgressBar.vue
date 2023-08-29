@@ -4,9 +4,8 @@
     <svg viewBox="0 0 98 100" xmlns="http://www.w3.org/2000/svg" class="">
         <g>
             <g>
-              <text class="transition" fill="#e7f8fd" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
+              <text class="transition" fill="#e7f8fd" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
             </g>
-
             <linearGradient 
                         id="gradient"
                         fx="0.99"
@@ -18,9 +17,9 @@
                 <stop offset="30%" stop-color="#0EABD9"></stop>
                 <stop offset="100%" stop-color="#e7f8fd" ></stop>
             </linearGradient>
-            <circle id="basePath" class="baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
+            <circle id="basePath" class=" baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
                 'stroke-width': '3px',
-                'stroke': '#333333'
+                'stroke': '#242424'
             }"/>
             <circle id="basePath" class=" rotate-270" cx="-50" cy="50" r="45" stroke-linecap="round" :style="{
                 'stroke': 'url(#gradient)',
