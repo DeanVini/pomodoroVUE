@@ -3,8 +3,12 @@
     
     <svg viewBox="0 0 98 100" xmlns="http://www.w3.org/2000/svg" class="">
         <g>
+            <g transform="scale(1.5, 1.5)">
+              <text class="transition" fill="#e7f8fd" x="34%" y="25%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
+            </g>
             <g>
-              <text class="transition" fill="#e7f8fd" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
+              <text transform="scale(0.5, 0.5)" class="transition" fill="#e7f8fd" x="101%" y="125%" dominant-baseline="middle" text-anchor="middle" id="counterText">Perfil:</text>
+              <text font-weight="bold" transform="scale(0.6, 0.6)" class="transition" fill="#e7f8fd" x="84%" y="120%" dominant-baseline="middle" text-anchor="middle" id="counterText">NomePerfil</text>
             </g>
             <linearGradient 
                         id="gradient"
@@ -50,16 +54,16 @@ const props = defineProps({
     }
 })
 
-let dashoffset = ref(283)
+let dashoffset = ref(0)
 let dashTime = ref(283/(props.initialTime * 60));
 
 
 watch(() => props.seconds, async (newSeconds) => {
     if(props.minutes === props.initialTime && props.seconds === 0){
-      dashoffset.value = 283
+      dashoffset.value = 0
     }
     else{
-      dashoffset.value -= dashTime.value
+      dashoffset.value += dashTime.value
     }
   });
 
@@ -76,6 +80,7 @@ circle {
   transition: all 0.3s linear;
   fill: transparent;
   stroke-width: 3px;
+  color: #05c5ff;
 }
 
 
