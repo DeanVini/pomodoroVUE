@@ -22,24 +22,18 @@
 </template>
 
 <script setup>
-
-
-import { onMounted, ref } from "vue";
 import router from "../../router";
 import BaseButton from "../Forms/BaseButton.vue";
 
-
-let actualRoute = ref()
-
-onMounted(()=>{
-    actualRoute.value= router.currentRoute.value;
-    console.log(actualRoute.value)
+const props = defineProps({
+    actualRoute: {
+        type: String
+    }
 })
-
 
 function logout(){
     localStorage.clear();
-    router.push('/login')
+    router.push('/login');
 }
 
 </script>
