@@ -3,18 +3,18 @@
         <div class="p-5 flex flex-col items-start">
             <h1 class="text-4xl pb-3">Tarefas</h1>
             <div class="flex flex-col gap-3">
-                <task/>
-                <task/>
-                <task/>
-                <task/>
-                <task/>
-                <task/>
-                <task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
             </div>
         </div>
-    </div>
+    </div> 
 </template>
 
 <script setup>
-import task from './task.vue';
+import Task from './Task.vue';
 </script>

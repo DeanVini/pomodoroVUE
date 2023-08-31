@@ -1,6 +1,6 @@
 <template>
 <div class="w-full flex flex-row-reverse">
-    <taskTable/>
+    <TaskTable/>
     <div class="flex flex-col h-[600px] items-center justify-center w-full">
         <div :class="started ? 'transition-colors border-[#0EABD9] border-2' : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[485px]">
             <div class="p-2 flex justify-center gap-4">
@@ -30,7 +30,7 @@
 import TimerProgressBar from '../components/TimerProgressBar.vue';
 import { ref, watch } from 'vue';
 import BaseButton from '../components/Forms/BaseButton.vue';
-import taskTable from '../components/taskTable.vue';
+import TaskTable from '../components/TaskTable.vue';
 
 let isFinished = ref(false);
 let started = ref(false);

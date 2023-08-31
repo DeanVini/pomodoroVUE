@@ -25,12 +25,26 @@
       "id": 3
     }
   ],
+  "tasks": [
+    {
+      "id": 1,
+      "taskStored": [
+        {
+          "content": "Terminar o pomodoroVUE",
+          "finished": false,
+          "id" : 1
+        }
+      ]
+    }
+  ],
   "times": [
     {
       "id": 0,
       "timeStored": [
         {
           "focusTime": 0,
+          "break": 0,
+          "longBreak": 0,
           "cycles": 0
         }
       ]
