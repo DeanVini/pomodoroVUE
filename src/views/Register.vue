@@ -79,6 +79,11 @@ async function registerUser(){
     sameUsername = false;
     sameEmail = false;
     await injector.register.post(userForReq)
+    .then(async response => {
+        const id = response.data.id;
+        await injector.profiles.create(id)
+        await injector.tasks.create(id)
+    })
     .then(()=>{
         Swal.fire({
             icon: 'success',
@@ -95,7 +100,8 @@ async function registerUser(){
             }
         })
     })
-    .catch((error) => { msgError.value = error;}); 
+    .catch((error) => { msgError.value = error;});
+    // await injector.profiles.create()
 }
 
 function isFilled(event){

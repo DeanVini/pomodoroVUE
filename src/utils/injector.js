@@ -1,6 +1,17 @@
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_HOST;
+const defaultProfile = {
+    profileStored: [
+        {
+          name: "Default",
+          focusTime: 25,
+          break: 5,
+          longBreak: 15,
+          id: 1
+        }
+    ]
+}
 
 async function useAxios(tipo, entidade, params = "", dados = "", headerOption) {
     try {
@@ -18,7 +29,6 @@ async function useAxios(tipo, entidade, params = "", dados = "", headerOption) {
 
 let register = {
     post: async function (data){
-        console.log("data", data)
         if(!isValidReq(data)){
             throw("Preencha todos os campos!")
         }
@@ -32,6 +42,24 @@ let register = {
     }
 }
 
+let tasks = {
+    create: async function(userId){
+        return await useAxios("post", "tasks", "", {
+            id: userId,
+            taskStored: []
+        })
+    }
+}
+
+let profiles = {
+    create: async function(userId){
+        return await useAxios("post", "profiles", "", {
+            id: userId,
+            ...defaultProfile
+        })
+    }
+}
+
 let login = {
     get: async function(email, password){
         return await useAxios("get", `users?email=${email}&password=${password}`, "")
@@ -40,7 +68,6 @@ let login = {
 
 function isValidReq(req){
     return Object.values(req).every(value => {
-        console.log(value);
         if(value == null || value == ""){
             return false;
         }
@@ -54,7 +81,6 @@ function isValidReq(req){
 
 async function checkDBForEmail(email){
     let response = await useAxios("get", `users?email=${email}`, "");
-    console.log('Email:',response.data.length)
 
     if((response.status == 200 || response.status == 200) && response.data.length > 0){
         return true;
@@ -65,14 +91,10 @@ async function checkDBForEmail(email){
 async function checkDBForUsername(username){
     let response = await useAxios("get", `users?username=${username}`, "");
 
-    console.log('Username:',response.data.length)
-    console.log('status', response.status)
-
     if((response.status == 200 || response.status == 201) && response.data.length > 0){
-        console.log("false")
         return true;
     }
     return false;
 }
 
-export const injector = {login, register, useAxios}
+export const injector = {profiles, tasks, login, register, useAxios}

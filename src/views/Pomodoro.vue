@@ -1,7 +1,7 @@
 <template>
 <div class="w-full flex flex-row-reverse">
     <TaskTable/>
-    <div class="flex flex-col h-[600px] items-center justify-center w-full">
+    <div class="flex flex-col items-center justify-center w-full">
         <div :class="started ? 'transition-colors border-[#0EABD9] border-2' : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[485px]">
             <div class="p-2 flex justify-center gap-4">
                 <h1 class="bg-[#2b2a2a] font-bold p-1 rounded-md w-[125px] text-center">Pomodoro</h1>
