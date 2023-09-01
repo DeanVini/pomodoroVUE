@@ -1,7 +1,7 @@
 <template>
     <h1 @click="show = !show">CLICK-ME</h1>
     <transition name="bounce">
-            <div v-if="show" class="h-12 w-80 border rounded-md bg-black">
+            <div v-if="show" class="h-12 w-96 border rounded-md bg-black">
                
             </div>
     </transition>

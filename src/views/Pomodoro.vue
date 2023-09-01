@@ -1,29 +1,32 @@
 <template>
-<div class="w-full flex flex-row-reverse">
-    <TaskTable/>
-    <div class="flex flex-col items-center justify-center w-full">
-        <div :class="started ? 'transition-colors border-[#0EABD9] border-2' : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[485px]">
-            <div class="p-2 flex justify-center gap-4">
-                <h1 class="bg-[#2b2a2a] font-bold p-1 rounded-md w-[125px] text-center">Pomodoro</h1>
-                <h1 class="bg-[#333333] w-[125px] text-center p-1 rounded-md">Descanso</h1>
-                <h1 class="bg-[#333333] w-[125px] text-center p-1 rounded-md">Descanso Longo</h1>
-            </div>
-            <div class="flex justify-center">
-                <TimerProgressBar 
-                    class="" 
-                    :minutes="minutes"
-                    :seconds="seconds"
-                    @click="decress"
-                    :initialTime="initialTime"
-                    />
+    <div class="">
+        <div class="w-full flex h-screen">
+            <div class="flex flex-col min-h-min mb-[78px] items-center justify-center w-full">
+                <div :class="started ? 'transition-colors border-[#0EABD9] border-2' : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
+                    <div class="p-2 pb-[50px] flex justify-center gap-4">
+                        <h1 class="bg-[#2b2a2a] font-bold p-1 rounded-md w-[125px] text-center">Pomodoro</h1>
+                        <h1 class="bg-[#333333] w-[125px] text-center p-1 rounded-md">Descanso</h1>
+                        <h1 class="bg-[#333333] w-[125px] text-center p-1 rounded-md">Descanso Longo</h1>
+                    </div>
+                    <div class="flex justify-center">
+                        <TimerProgressBar 
+                        class="" 
+                        :minutes="minutes"
+                        :seconds="seconds"
+                        @click="decress"
+                        :initialTime="initialTime"
+                        />
+                    </div>
+                    <div class="flex pt-[50px] flex-row justify-center mt-3 itens-center w-full gap-6 self-center">
+                        <BaseButton v-if="!started" class="delay-150 transition" type="start" value="Iniciar" @click="play()"/>
+                        <BaseButton v-else type="stop" class="delay-150 transition" value="Parar" widthVal="300" heightVal="50" @click="stop()"/>
+                    </div>
                 </div>
-                <div class="flex flex-row justify-center mt-3 itens-center w-full gap-6 self-center">
-                    <BaseButton v-if="!started" class="delay-150 transition" type="start" value="Iniciar" @click="play()"/>
-                    <BaseButton v-else type="stop" class="delay-150 transition" value="Parar" widthVal="300" heightVal="50" @click="stop()"/>
-                </div>
             </div>
+            <TaskTable/>
         </div>
-</div>
+
+    </div>
 </template>
 
 <script setup>

@@ -1,6 +1,11 @@
 <template>
-  <NavBar :actualRoute="route.name" v-if="router.currentRoute.value.href != '/login' && router.currentRoute.value.href != '/register'"/>
-  <router-view></router-view>
+  <div class="w-full h-screen flex flex-col overflow-y-hidden">
+    <NavBar :actualRoute="route.name" v-if="router.currentRoute.value.href != '/login' && router.currentRoute.value.href != '/register'"/>
+    <div class="h-full">
+      <router-view></router-view>
+
+    </div>  
+  </div>
 </template>
 
 <script setup>
