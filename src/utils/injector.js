@@ -48,6 +48,9 @@ let tasks = {
             id: userId,
             taskStored: []
         })
+    },
+    get: async function(userId){
+        return await useAxios("get", `tasks?id=${userId}`)
     }
 }
 

@@ -22,7 +22,7 @@
       "id": 1,
       "taskStored": [
         {
-          "name": "Desenvolver o PomodoroVUE",
+          "description": "Desenvolver o PomodoroVUE",
           "finshed": false,
           "id": 1
         }

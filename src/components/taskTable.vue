@@ -20,4 +20,18 @@
 
 <script setup>
 import Task from './Task.vue';
+import userInfoStore from '../store/userInfos';
+import { onMounted, ref } from 'vue';
+import { injector } from '../utils/injector';
+
+const userId = ref()
+const tasks = ref([]);
+
+onMounted(async ()=>{
+    userId.value = userInfoStore().userInfo.id;
+    tasks.value = await injector.tasks.get(userId)
+    console.log(tasks.value.data)
+})
+
+console.log(userInfoStore().userInfo)
 </script>
