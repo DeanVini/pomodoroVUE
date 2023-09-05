@@ -50,7 +50,7 @@ let tasks = {
         })
     },
     get: async function(userId){
-        return await useAxios("get", `tasks?id=${userId}`)
+        return await useAxios("get", `tasks?id=${userId.value}`)
     }
 }
 

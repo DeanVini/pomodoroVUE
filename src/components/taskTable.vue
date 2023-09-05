@@ -4,13 +4,12 @@
             <div class="p-5 flex flex-col items-start">
                 <h1 class="text-4xl pb-3">Tarefas</h1>
                 <div class="flex flex-col items-center justify-center gap-3">
-                    <Task/>
-                    <Task/>
-                    <Task/>
-                    <Task/>
-                    <Task/>
-                    <Task/>
-                    <Task/>
+                    <div v-for="task in tasks" :key="task.id">
+                        <Task/>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center gap-3">
+                    <CreateTask/>
                 </div>
             </div>
         </div> 
@@ -21,17 +20,18 @@
 <script setup>
 import Task from './Task.vue';
 import userInfoStore from '../store/userInfos';
+import CreateTask from './CreateTask.vue'
 import { onMounted, ref } from 'vue';
 import { injector } from '../utils/injector';
 
-const userId = ref()
+
+const userId = ref();
 const tasks = ref([]);
 
 onMounted(async ()=>{
     userId.value = userInfoStore().userInfo.id;
-    tasks.value = await injector.tasks.get(userId)
-    console.log(tasks.value.data)
+    tasks.value = await injector.tasks.get(userId);
+    tasks.value = tasks.value.data[0].taskStored;
 })
 
-console.log(userInfoStore().userInfo)
 </script>
