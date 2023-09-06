@@ -5,11 +5,12 @@
                 <h1 class="text-4xl pb-3">Tarefas</h1>
                 <div class="flex flex-col items-center justify-center gap-6">
                     <div v-for="task in tasks" :key="task.id">
-                        {{ print(task.description) }}
-                        <Task :description="task.description"/>
+                        <Transition name="bounce">
+                            <Task v-show="task" :description="task.description"/>
+                        </Transition>
                     </div>
                     <div class="flex flex-col items-center justify-center">
-                        <CreateTask/>
+                        <CreateTask :tasks="tasks" :userId="userId" :id="tasks.length + 2"/>
                     </div>
                 </div>
             </div>
@@ -40,3 +41,23 @@ function print(print){
 }
 
 </script>
+
+<style scoped>
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>

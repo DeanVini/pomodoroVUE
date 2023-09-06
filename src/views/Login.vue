@@ -24,8 +24,8 @@
             </div>
             
             <div class="flex gap-5 self-center mt-4">
-                <BaseButton type="login" value="Logar" @click="logar()"/>
-                <BaseButton  type="login" value="Registrar-se" @click="router.push('/register')"/>
+                <BaseButton type="default" value="Logar" @click="logar()"/>
+                <BaseButton  type="default" value="Registrar-se" @click="router.push('/register')"/>
             </div>
             </div>
 
@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import router from "../router";
 import BaseButton from "../components/Forms/BaseButton.vue";
 import BaseInput from "../components/Forms/BaseInput.vue";

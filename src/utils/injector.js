@@ -51,6 +51,12 @@ let tasks = {
     },
     get: async function(userId){
         return await useAxios("get", `tasks?id=${userId.value}`)
+    },
+    put: async function(userId, tasks){
+        console.log(tasks)
+        return await useAxios("put", `tasks/${userId}`, '', {
+            taskStored: tasks
+        })
     }
 }
 

@@ -16,7 +16,7 @@
                 <h1>Perfil</h1>
             </button>
         </div>
-        <BaseButton type="login" classes="w-[100px] h-[45px]" value="Logout" @click="logout()"/>
+        <BaseButton type="default" classes="w-[100px] h-[45px]" value="Logout" @click="logout()"/>
     </div>
 </div>    
 </template>

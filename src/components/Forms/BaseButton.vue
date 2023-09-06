@@ -1,5 +1,5 @@
 <template>
-    <div v-if="type == 'login'">
+    <div v-if="type == 'default'">
         <button :class='classes' class="bg-[#007AB7] border-[#007AB7] rounded-lg transition-colors duration-300 hover:bg-[#007ab7d5] active:bg-[#018fd6]"><h1 :class="''">{{ value }}</h1></button>    
     </div>
     <div v-else-if="type == 'start'">

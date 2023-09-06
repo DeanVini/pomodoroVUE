@@ -42,7 +42,7 @@
                     <BaseInput @input="isFilled" @update="(event)=>userForReq.password = event" id="password-adress" type="password" placeholder="Sua senha..." v-model="test"/>
                 </div>
                 <div class="flex justify-start gap-7 pt-3 ">
-                    <BaseButton type="login" value="Registrar-se" @click="registerUser()"/>
+                    <BaseButton type="default" value="Registrar-se" @click="registerUser()"/>
                 </div>
                 <div class="flex gap-1">
                     <p>Já possui uma conta?</p>
