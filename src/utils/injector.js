@@ -57,6 +57,11 @@ let tasks = {
         return await useAxios("put", `tasks/${userId}`, '', {
             taskStored: tasks
         })
+    },
+    editFinished: async function(userId, taskId, state){
+        return await useAxios("put", `tasks/${userId}/?taskStored/${taskId}`, '', {
+            finished: state
+        })
     }
 }
 

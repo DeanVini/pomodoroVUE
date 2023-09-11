@@ -1,5 +1,5 @@
 <template>
-    <div :class="opened ? 'border border-[#333333] rounded-t-md shadow-[#333]' : 'rounded-md border-[#333333] transition shadow-[#333]'" class="w-96 shadow-[#333] h-[70px] flex just items-center p-2 bg-[#333]">
+    <div :class="opened ? 'border border-[#333333] rounded-t-md shadow-[#333]' : 'shadow-lg shadow-[#333] border-[#333333] items-center p-2 border rounded-md bg-[#333]'" class="w-96 h-[70px] flex just items-center p-2 bg-[#333]">
         <Transition name="fade" >
             <img @click="opened = false" v-show="opened" class="absolute duration-75 cursor-pointer transition mr-1" src="./../assets/circle-minus-svgrepo-com.svg" alt="">
         </Transition>
