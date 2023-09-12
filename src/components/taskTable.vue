@@ -7,11 +7,11 @@
                     <div v-for="task in tasks" :key="task.finished">
                       {{ console.log(task.id,task.finished) }}
                         <Transition name="bounce">
-                            <Task :userId="userId" :id="task.id" :finished="task.finished" v-show="task" :description="task.description"/>
+                            <Task :show="show" :userId="userId" :id="task.id" :finished="task.finished" v-show="task" :description="task.description"/>
                         </Transition>
                     </div>
                     <div class="flex flex-col items-center justify-center">
-                        <CreateTask :tasks="tasks" :userId="userId" :id="id"/>
+                        <CreateTask @changeState="show=!show" :tasks="tasks" :userId="userId" :id="id"/>
                     </div>
                 </div>
             </div>
@@ -27,10 +27,10 @@ import CreateTask from './CreateTask.vue'
 import { onMounted, ref } from 'vue';
 import { injector } from '../utils/injector';
 
-
+let show = ref(true);
 const userId = ref();
 const tasks = ref([]);
-const id = ref()
+const id = ref();
 
 onMounted(async ()=>{
     userId.value = userInfoStore().userInfo.id;

@@ -29,24 +29,38 @@ import { injector } from "../utils/injector";
 import BaseButton from "./Forms/BaseButton.vue"
 import BaseInput from "./Forms/BaseInput.vue"
 
-const props = defineProps(["tasks", 'id', "userId"])
+const props = defineProps({
+    tasks:{
+        type: Array
+    },
+    id:{
+        type: Number
+    },
+    userId:{
+        type: Number
+    }
+})
 let opened = ref(false)
 
+const emit = defineEmits(['changeState'])
 
 let taskObject = reactive({
     description: null,
     finished: false,
-    id: props.id
+    id: null
 })
 
 async function confirmTask(){
-    const tasksForReq = props.tasks
-    tasksForReq.push(taskObject)
-    console.log(tasksForReq)
+    emit('changeState');
+    let tasksForReq = props.tasks;
+    tasksForReq.
+    tasksForReq.unshift(taskObject);
+    console.log('id da task:', props.id);
+    console.log(tasksForReq);
     await injector.tasks.put(props.userId, tasksForReq)
     .then(()=>{
         opened.value = false;
-        location.reload()
+        emit('changeState');
     })
     console.log(taskObject);
 

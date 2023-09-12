@@ -16,7 +16,6 @@
 import { ref, watch } from "vue";
 import Icon from "./Icon.vue"
 import { injector } from "../utils/injector";
-let show = ref(true)
 
 
 const props = defineProps({
@@ -32,6 +31,10 @@ const props = defineProps({
   },
   userId:{
     type: Number
+  },
+  show:{
+    type: Boolean,
+    default: true
   }
 })
 
