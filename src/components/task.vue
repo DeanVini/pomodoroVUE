@@ -26,6 +26,9 @@ const props = defineProps({
   finished: {
     type: Boolean
   },
+  show: {
+    type: Boolean
+  },
   id:{
     type: Number
   },

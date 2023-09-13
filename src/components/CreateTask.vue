@@ -11,7 +11,7 @@
         </Transition>
         <Transition name="fade" mode="out-in">
             <div v-if="opened" class="transition absolute ml-[2.32rem] w-[16.5%]">
-                <BaseInput type="task" @input="isFilled" @update="(event) => {taskObject.description = event}"/>
+                <BaseInput type="task" @input="isFilled" @update="(event) => {inputValue = event}"/>
             </div>
         </Transition>
     </div>
@@ -40,28 +40,41 @@ const props = defineProps({
         type: Number
     }
 })
-let opened = ref(false)
 
-const emit = defineEmits(['changeState'])
+let opened = ref(false)
+let inputValue = ref()
+let tasksForReq = ref([])
+
+const emit = defineEmits(['newTask'])
 
 let taskObject = reactive({
     description: null,
-    finished: false,
+    finished: null,
+    show: null,
     id: null
 })
 
 async function confirmTask(){
-    emit('changeState');
-    let tasksForReq = props.tasks;
-    tasksForReq.
-    tasksForReq.unshift(taskObject);
-    console.log('id da task:', props.id);
-    console.log(tasksForReq);
-    await injector.tasks.put(props.userId, tasksForReq)
-    .then(()=>{
+    tasksForReq.value = tasksForReq.value.concat(props.tasks);
+
+    taskObject.description = inputValue.value;
+    taskObject.finished = false;
+    taskObject.show = true;
+    taskObject.id = props.id
+
+    tasksForReq.value.push(taskObject);
+
+    
+    await injector.tasks.put(props.userId, tasksForReq.value).then(()=>{
         opened.value = false;
-        emit('changeState');
+        taskObject.show = false
+        emit('newTask', {
+            ...taskObject
+        })
+        clearObj();
+        tasksForReq.value = []
     })
+
     console.log(taskObject);
 
 }
@@ -69,6 +82,15 @@ async function confirmTask(){
 function isFilled(event){
     if(event.length > 0){
 
+    }
+}
+
+function clearObj(){
+    taskObject = {
+        description: null,
+        finished: null,
+        show: null,
+        id: null
     }
 }
 

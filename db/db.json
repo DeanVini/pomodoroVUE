@@ -23,6 +23,7 @@
         {
           "description": "Desenvolver o PomodoroVUE",
           "finished": true,
+          "show": true,
           "id": 1
         }
       ],

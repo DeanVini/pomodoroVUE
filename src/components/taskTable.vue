@@ -4,14 +4,13 @@
             <div class="p-5 flex flex-col items-start">
                 <h1 class="text-4xl pb-3">Tarefas</h1>
                 <div class="flex flex-col items-center justify-center gap-6">
-                    <div v-for="task in tasks" :key="task.finished">
-                      {{ console.log(task.id,task.finished) }}
+                    <div v-for="task in tasksForTable" :key="task.show">
                         <Transition name="bounce">
-                            <Task :show="show" :userId="userId" :id="task.id" :finished="task.finished" v-show="task" :description="task.description"/>
+                            <Task v-if="task.show" :userId="userId" :id="id" :show="task.show" :finished="task.finished" v-show="task" :description="task.description"/>
                         </Transition>
                     </div>
                     <div class="flex flex-col items-center justify-center">
-                        <CreateTask @changeState="show=!show" :tasks="tasks" :userId="userId" :id="id"/>
+                        <CreateTask @newTask="addTaskInTable" :tasks="tasks" :userId="userId" :id="id"/>
                     </div>
                 </div>
             </div>
@@ -27,9 +26,9 @@ import CreateTask from './CreateTask.vue'
 import { onMounted, ref } from 'vue';
 import { injector } from '../utils/injector';
 
-let show = ref(true);
 const userId = ref();
 const tasks = ref([]);
+const tasksForTable = ref([])
 const id = ref();
 
 onMounted(async ()=>{
@@ -38,10 +37,17 @@ onMounted(async ()=>{
     tasks.value = tasks.value.data[0].taskStored;
 
     tasks.value = sortTasks();
-
-    console.log(tasks.value)
+    tasksForTable.value = tasks.value
+    
+    console.log('task:',tasks.value)
+  })
+  
+  function addTaskInTable(task){
+    task.show = true
+    console.log("Added task:",task)
+    tasksForTable.value.unshift(task)
     id.value = tasks.value.length + 1;
-})
+}
 
 function sortTasks(){
   return tasks.value.sort((task1) => {
