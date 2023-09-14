@@ -6,7 +6,7 @@
                 <div class="flex flex-col items-center justify-center gap-6">
                     <div v-for="task in tasksForTable" :key="task.show">
                         <Transition name="bounce">
-                            <Task v-if="task.show" :userId="userId" :id="id" :show="task.show" :finished="task.finished" v-show="task" :description="task.description"/>
+                            <Task v-if="task.show" @restart="restartTaskTable(); console.log('1')" :tasks="tasksForTable" :userId="userId" :id="task.id" :show="task.show" :finished="task.finished" v-show="task" :description="task.description"/>
                         </Transition>
                     </div>
                     <div class="flex flex-col items-center justify-center">
@@ -36,7 +36,7 @@ onMounted(async ()=>{
     tasks.value = await injector.tasks.get(userId);
     tasks.value = tasks.value.data[0].taskStored;
 
-    tasks.value = sortTasks();
+    tasks.value = sortTasks(tasks.value);
     tasksForTable.value = tasks.value
     
     console.log('task:',tasks.value)
@@ -49,8 +49,12 @@ onMounted(async ()=>{
     id.value = tasks.value.length + 1;
 }
 
-function sortTasks(){
-  return tasks.value.sort((task1) => {
+function restartTaskTable(){
+  tasksForTable.value = sortTasks(tasksForTable.value);
+}
+
+function sortTasks(taskArray){
+  return taskArray.sort((task1) => {
       return task1.finished === false ? -1 : 1;
     });
 }

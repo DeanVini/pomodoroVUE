@@ -1,13 +1,13 @@
 <template>
     <transition name="bounce">
-            <div v-if="show" class="w-96 shadow-lg shadow-[#333] h-[70px] flex just border-[#333333] items-center p-2 border rounded-md bg-[#333]">
+            <div v-show="show" :key="show" class="w-96 shadow-lg shadow-[#333] h-[70px] flex just border-[#333333] items-center p-2 border rounded-md bg-[#333]">
               <div class="mr-1">
                 <Transition name="iconBounce">
-                  <Icon v-if="!finished" type="check" fill="#e7f8fd" stroke="#007AB7"/>
-                  <icon v-else type="check" fill="#e7f8fd" stroke="#489B6D"/>
+                  <Icon v-if="!finished" class="cursor-pointer" @click="changeFinished" :key="show" type="check" fill="#e7f8fd" stroke="#007AB7"/>
+                  <icon v-else class="cursor-pointer" @click="changeFinished" type="check" fill="#e7f8fd" stroke="#489B6D"/>
                 </Transition>
               </div>
-              <p :class="finished ? 'line-through text-gray-400' : ''" class="truncate" @click="changeFinished">{{ description }}</p>
+              <p :class="finished ? 'line-through text-gray-400' : ''" class="truncate">{{ description }}</p>
             </div>
     </transition>
 </template>
@@ -17,6 +17,7 @@ import { ref, watch } from "vue";
 import Icon from "./Icon.vue"
 import { injector } from "../utils/injector";
 
+const emit = defineEmits(['restart'])
 
 const props = defineProps({
   description: {
@@ -38,12 +39,20 @@ const props = defineProps({
   show:{
     type: Boolean,
     default: true
+  },
+  tasks:{
+    type: Array
   }
 })
 
+//this is the incorrect way to do this change, but for now is functional
+//todo: Create an API to improve way to edit this information
 async function changeFinished(){
-  props.finished= !props.finished
-  await injector.tasks.put(props.userId, props.id, props.finished)
+  props.finished= !props.finished;
+  console.log('UserId: ', props.userId, '\nTaskId: ', props.id, '\nIsFinished: ', props.finished);
+  await injector.tasks.editFinished(props.userId, props.id, props.tasks);
+
+  emit('restart')
 }
 </script>
 
