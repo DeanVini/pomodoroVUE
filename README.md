@@ -14,4 +14,4 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 - ~~Make register page functional~~
 - Create pomodoro's page
 - Create profile page
-- Create pomodoro's home page
+- Create a API and refact the task creation function and the changeFinished function
