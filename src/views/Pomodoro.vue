@@ -4,13 +4,14 @@
             <div class="flex flex-col min-h-min mb-[78px] items-center justify-center w-full">
                 <div :class="started ? 'transition-colors border-[#0EABD9] border-2' : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
                     <div class="p-2 pb-[50px] flex justify-center gap-4">
-                        <h1 class="bg-[#2b2a2a] font-bold p-1 rounded-md w-[125px] text-center">Pomodoro</h1>
-                        <h1 class="bg-[#333333] w-[125px] text-center p-1 rounded-md">Descanso</h1>
-                        <h1 class="bg-[#333333] w-[125px] text-center p-1 rounded-md">Descanso Longo</h1>
+                        <BaseButton value="Pomodoro" type="pomodoro"/>
+                        <BaseButton value="Descanso" type="pomodoro"/>
+                        <BaseButton value="Descanso Longo" type="pomodoro"/>
                     </div>
                     <div class="flex justify-center">
                         <TimerProgressBar 
                         class="" 
+                        :profileName="profile.name"
                         :minutes="minutes"
                         :seconds="seconds"
                         @click="decress"
@@ -31,16 +32,31 @@
 
 <script setup>
 import TimerProgressBar from '../components/TimerProgressBar.vue';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import BaseButton from '../components/Forms/BaseButton.vue';
 import TaskTable from '../components/TaskTable.vue';
+import { injector } from '../utils/injector';
+import userInfoStore from '../store/userInfos';
 
+const userId = ref();
+
+let profile = ref({});
 let isFinished = ref(false);
 let started = ref(false);
 let initialTime = ref(1);
 let minutes = ref(initialTime.value);
 let seconds = ref(0);
-let intervalId = ref(null)
+let intervalId = ref(null);
+
+onMounted(async()=>{
+    userId.value = userInfoStore().userInfo.id;
+    console.log(userId.value)
+    await injector.profiles.get(userId.value)
+            .then((response)=>{
+                profile.value = response.data.profileStored[response.data.lastProfile - 1] 
+            })
+    console.log(profile.value)
+});
 
 function decress(){
     if(minutes.value >= 0 && isFinished.value === false)

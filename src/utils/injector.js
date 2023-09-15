@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_HOST;
 const defaultProfile = {
+    lastProfile: 1,
     profileStored: [
         {
           name: "Default",
@@ -79,6 +80,9 @@ let profiles = {
             id: userId,
             ...defaultProfile
         })
+    },
+    get: async function(userId){
+        return await useAxios("get", `profiles/${userId}`, "");
     }
 }
 

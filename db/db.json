@@ -1,5 +1,6 @@
 {
   "users": [
+
     {
       "name": "Dean",
       "surname": "de Meneses",
@@ -21,28 +22,28 @@
     {
       "taskStored": [
         {
+          "description": "ir de F",
+          "finished": false,
+          "show": true,
+          "id": 4
+        },
+        {
           "description": "teset",
           "finished": false,
           "show": true,
           "id": 2
         },
         {
-          "description": "aaaaa",
-          "finished": false,
-          "show": true,
-          "id": 3
-        },
-        {
           "description": "Desenvolver o PomodoroVUE",
-          "finished": false,
+          "finished": true,
           "show": true,
           "id": 1
         },
         {
-          "description": "ir de F",
+          "description": "aaaaa",
           "finished": false,
           "show": true,
-          "id": 4
+          "id": 3
         }
       ],
       "id": 1
@@ -54,6 +55,7 @@
   ],
   "profiles": [
     {
+      "lastProfile": 1,
       "profileStored": [
         {
           "name": "Default",
@@ -66,6 +68,7 @@
       "id": 1
     },
     {
+      "lastProfile": 1,
       "profileStored": [
         {
           "name": "Default",
