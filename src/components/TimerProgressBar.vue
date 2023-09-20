@@ -8,7 +8,7 @@
             </g>
             <g>
               <text transform="scale(0.5, 0.5)" class="transition" fill="#e7f8fd" x="101%" y="125%" dominant-baseline="middle" text-anchor="middle" id="counterText">Perfil:</text>
-              <text font-weight="bold" transform="scale(0.6, 0.6)" class="transition" fill="#e7f8fd" x="84%" y="120%" dominant-baseline="middle" text-anchor="middle" id="counterText">NomePerfil</text>
+              <text font-weight="bold" transform="scale(0.6, 0.6)" class="transition" fill="#e7f8fd" x="84%" y="120%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ profileName }}</text>
             </g>
             <linearGradient 
                         id="gradient"
@@ -18,8 +18,8 @@
                         cy="0.5"
                         r="0.65"
                         >
-                <stop offset="30%" stop-color="#0EABD9"></stop>
-                <stop offset="100%" stop-color="#e7f8fd" ></stop>
+                <stop offset="30%" :stop-color="startColor"></stop>
+                <stop offset="100%" :stop-color="endColor" ></stop>
             </linearGradient>
             <circle id="basePath" class=" baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
                 'stroke-width': '3px',
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, watch, watchPostEffect } from "vue";
+import { ref, watch, onMounted, watchPostEffect } from "vue";
 
 
 const props = defineProps({
@@ -51,19 +51,29 @@ const props = defineProps({
     initialTime: {
       type: Number,
       required: true
+    },
+    profileName:{
+      type: String,
+      default: "Normal"
+    },
+    startColor:{
+      type: String
+    },
+    endColor:{
+      type: String
     }
 })
 
 let dashoffset = ref(0)
-let dashTime = ref(283/(props.initialTime * 60));
-
 
 watch(() => props.seconds, async (newSeconds) => {
+  console.log(props.initialTime)
+  console.log(props.initialTime)
     if(props.minutes === props.initialTime && props.seconds === 0){
       dashoffset.value = 0
     }
     else{
-      dashoffset.value += dashTime.value
+      dashoffset.value += (283/(props.initialTime * 60))
     }
   });
 
