@@ -80,7 +80,6 @@ circle {
   transition: all 0.3s linear;
   fill: transparent;
   stroke-width: 3px;
-  color: #05c5ff;
 }
 
 

@@ -4,9 +4,9 @@
             <div class="flex flex-col min-h-min mb-[78px] items-center justify-center w-full">
                 <div :class="started ? 'transition-colors border-[#0EABD9] border-2' : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
                     <div class="p-2 pb-[50px] flex justify-center gap-4">
-                        <BaseButton value="Pomodoro" type="pomodoro"/>
-                        <BaseButton value="Descanso" type="pomodoro"/>
-                        <BaseButton value="Descanso Longo" type="pomodoro"/>
+                        <BaseButton value="Pomodoro" type="pomodoro" :selected="selectedTime == 1" @click="selectedTime = 1"/>
+                        <BaseButton value="Descanso" type="pomodoro" :selected="selectedTime == 2" @click="selectedTime = 2"/>
+                        <BaseButton value="Descanso Longo" type="pomodoro" :selected="selectedTime == 3" @click="selectedTime = 3"/>
                     </div>
                     <div class="flex justify-center">
                         <TimerProgressBar 
@@ -43,18 +43,20 @@ const userId = ref();
 let profile = ref({});
 let isFinished = ref(false);
 let started = ref(false);
-let initialTime = ref(1);
+let initialTime = ref();
 let minutes = ref(initialTime.value);
 let seconds = ref(0);
 let intervalId = ref(null);
+let selectedTime = ref(1);
 
 onMounted(async()=>{
     userId.value = userInfoStore().userInfo.id;
     console.log(userId.value)
     await injector.profiles.get(userId.value)
             .then((response)=>{
-                profile.value = response.data.profileStored[response.data.lastProfile - 1] 
+                profile.value = response.data.profileStored[response.data.lastProfile - 1];
             })
+    initialTime.value = selectedTime.value == 1 ? profile.value.focusTime : selectedTime.value == 2 ? profile.value.break : profile.value.longBreak;
     console.log(profile.value)
 });
 

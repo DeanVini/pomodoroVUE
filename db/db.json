@@ -1,6 +1,5 @@
 {
   "users": [
-
     {
       "name": "Dean",
       "surname": "de Meneses",
@@ -22,6 +21,17 @@
     {
       "taskStored": [
         {
+          "description": "aaaaa",
+          "finished": false,
+          "show": true,
+          "id": 3
+        },
+        {
+          "description": "FULLSTACK",
+          "finished": false,
+          "show": true
+        },
+        {
           "description": "ir de F",
           "finished": false,
           "show": true,
@@ -35,15 +45,9 @@
         },
         {
           "description": "Desenvolver o PomodoroVUE",
-          "finished": true,
-          "show": true,
-          "id": 1
-        },
-        {
-          "description": "aaaaa",
           "finished": false,
           "show": true,
-          "id": 3
+          "id": 1
         }
       ],
       "id": 1

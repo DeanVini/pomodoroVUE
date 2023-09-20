@@ -9,7 +9,7 @@
         <button :class='`bg-[#e7f8fd] border-[3px] font-bold text-[#007AB7] border-[#007AB7] rounded-lg w-[250px] h-[60px] transition-colors duration-400 active:scale-105`'><h1 class="text-3xl text-center">{{ value }}</h1></button>    
     </div>
     <div v-else-if="type == 'pomodoro'">
-        <button :class="selected ? 'bg-[#2b2a2a] font-bold w-[140px] text-center p-1 rounded-md' :'bg-[#333333] w-[125px] text-center p-1 rounded-md'" @click="selected = !selected">{{ value }}</button>
+        <button :class="selected ? 'bg-[#2b2a2a] font-bold w-[140px] text-center p-1 rounded-md' :'bg-[#333333] w-[125px] text-center p-1 rounded-md'">{{ value }}</button>
     </div>
 </template>
 <script setup>
@@ -40,8 +40,11 @@ const props = defineProps({
     bold:{
         type: Boolean,
         default: false
+    },
+    selected:{
+        type: Boolean,
+        default: false
     }
 })
 
-let selected = ref(false);
 </script>
