@@ -18,10 +18,11 @@
                         :seconds="seconds"
                         @click="decress"
                         :initialTime="initialTime"
+                        :next="next"
                         />
                     </div>
                     <div class="flex pt-[50px] flex-row justify-center mt-3 itens-center w-full gap-6 self-center">
-                        <BaseButton v-if="!started" :color="startColor" :classes="`bg-[${startColor}] font-bold border-[${startColor}] rounded-lg w-[250px] h-[60px] transition-colors duration-400 hover:bg-opacity-[120%] active:brightness-125 active:scale-105`" class="delay-150  transition" type="start" value="Iniciar" @click="play()"/>
+                        <BaseButton v-if="!started" :color="startColor" class="delay-150  transition" type="start" value="Iniciar" @click="play()"/>
                         <BaseButton v-else type="stop" :color="startColor" class=" delay-150 transition" value="Parar" widthVal="300" heightVal="50" @click="stop()"/>
                     </div>
                 </div>
@@ -42,6 +43,7 @@ import userInfoStore from '../store/userInfos';
 
 const userId = ref();
 
+let cycleCount = ref(0);
 let profile = ref({});
 let isFinished = ref(false);
 let started = ref(false);
@@ -52,6 +54,7 @@ let intervalId = ref(null);
 let selectedTime = ref(1);
 let startColor = ref()
 let endColor = ref()
+let next = ref(false)
 
 onMounted(async()=>{
     userId.value = userInfoStore().userInfo.id;
@@ -88,28 +91,49 @@ function changePomodoroState(){
     stop();
     if(selectedTime.value == 1){
         initialTime.value = profile.value.focusTime;
-        startColor.value = "#007AB7"
-        endColor.value = "#e7f8fd"
+        startColor.value = "blue"
+        endColor.value = "#e7f8fd" 
     }else if(selectedTime.value == 2){
         initialTime.value = profile.value.break;
-        startColor.value = "#489B6D"
+        startColor.value = "green"
         endColor.value = "#e7f8fd"
     }else{
-        initialTime.value = profile.value.break;
-        startColor.value = "#F2BA57"
+        initialTime.value = profile.value.longBreak;
+        startColor.value = "gold"
         endColor.value = "#e7f8fd"
     }
-    initialTime.value = selectedTime.value == 1 ? profile.value.focusTime : selectedTime.value == 2 ? profile.value.break : profile.value.longBreak;
-    minutes.value = initialTime.value 
-    console.log(initialTime.value)
+    minutes.value = initialTime.value;
+}
+
+function nextCycle(){
+    stop();
+    next.value = !next.value
+    if(cycleCount.value > 3){
+        initialTime.value = profile.value.longBreak;
+        startColor.value = "gold";
+        endColor.value = "#e7f8fd";
+        cycleCount.value = 0;
+        selectedTime == 3;
+    }
+    else if(selectedTime.value == 1){
+        initialTime.value = profile.value.break;
+        startColor.value = "green"
+        endColor.value = "#e7f8fd"
+        selectedTime == 2;
+    }else{
+        initialTime.value = profile.value.focusTime;
+        startColor.value = "blue"
+        endColor.value = "#e7f8fd"
+        cycleCount.value++;
+        selectedTime == 1;
+    }
+    minutes.value = initialTime.value;
 }
 
 watch(seconds, ()=>{
     console.log(minutes.value)
     if(minutes.value === -1){
-        minutes.value = 0;
-        seconds.value = 0;
-        isFinished.value = true;
+        nextCycle();
     }
 
     if(seconds.value < 0){

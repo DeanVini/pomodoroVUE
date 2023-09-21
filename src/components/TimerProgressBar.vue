@@ -18,7 +18,7 @@
                         cy="0.5"
                         r="0.65"
                         >
-                <stop offset="30%" :stop-color="startColor"></stop>
+                <stop offset="30%" :stop-color="Color()"></stop>
                 <stop offset="100%" :stop-color="endColor" ></stop>
             </linearGradient>
             <circle id="basePath" class=" baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
@@ -61,20 +61,21 @@ const props = defineProps({
     },
     endColor:{
       type: String
+    },
+    next:{
+      type: Boolean,
+      default: false
     }
 })
 
 let dashoffset = ref(0)
 
+watch(()=>{props.next}, ()=>{dashoffset.value = 283})
+
 watch(() => props.seconds, async (newSeconds) => {
-  console.log(props.initialTime)
-  console.log(props.initialTime)
-    if(props.minutes === props.initialTime && props.seconds === 0){
-      dashoffset.value = 0
-    }
-    else{
-      dashoffset.value += (283/(props.initialTime * 60))
-    }
+      if(dashoffset.value === 283){
+        dashoffset.value = 0
+      }else dashoffset.value += (283/(props.initialTime * 60));
   });
 
 function formatTime(number){
@@ -83,6 +84,16 @@ function formatTime(number){
     }
     return number;
 }
+
+function Color() {
+  const colorVariants = {
+    blue: "#007AB7",
+    green: "#489B6D",
+    gold: "#F2BA57"
+  }
+  return(colorVariants[props.startColor])
+}
+
 </script>
 
 <style scoped>
