@@ -1,7 +1,7 @@
 <template>
-<div class="bg-[#242424] gap-2 flex w-screen pl-[30px] items-center border-b">
+<div class="bg-[#242424] gap-2 flex w-full pl-[30px] items-center border-b">
     <div class="flex items-center">
-        <img src="../assets/time-eco-svgrepo-com.svg" class="mb-2 mt-2 w-[60px] h-[60px]" alt="">
+        <img src="../../assets/time-eco-svgrepo-com.svg" class="mb-2 mt-2 w-[60px] h-[60px]" alt="">
         <h1 class="font-bold pt-4">POMODORO</h1>
     </div>
     <div class="flex font-medium text-base w-screen gap-3 pt-4 pl-[60px] h-[77px]">
@@ -16,21 +16,25 @@
                 <h1>Perfil</h1>
             </button>
         </div>
-        <BaseButton type="login" width="100" height="45" value="Logout" @click="logout()"/>
+        <BaseButton type="default" classes="w-[100px] h-[45px]" value="Logout" @click="logout()"/>
     </div>
 </div>    
 </template>
 
 <script setup>
+import router from "../../router";
+import BaseButton from "../Forms/BaseButton.vue";
 
-import router from "../router";
-import BaseButton from "./Forms/BaseButton.vue";
 
-let actualRoute = router.currentRoute.value.name
+const props = defineProps({
+    actualRoute: {
+        type: String
+    }
+})
 
 function logout(){
     localStorage.clear();
-    router.push('/login')
+    router.push('/login');
 }
 
 </script>

@@ -42,7 +42,7 @@
                     <BaseInput @input="isFilled" @update="(event)=>userForReq.password = event" id="password-adress" type="password" placeholder="Sua senha..." v-model="test"/>
                 </div>
                 <div class="flex justify-start gap-7 pt-3 ">
-                    <BaseButton type="login" value="Registrar-se" @click="registerUser()"/>
+                    <BaseButton type="default" value="Registrar-se" @click="registerUser()"/>
                 </div>
                 <div class="flex gap-1">
                     <p>Já possui uma conta?</p>
@@ -79,6 +79,11 @@ async function registerUser(){
     sameUsername = false;
     sameEmail = false;
     await injector.register.post(userForReq)
+    .then(async response => {
+        const id = response.data.id;
+        await injector.profiles.create(id)
+        await injector.tasks.create(id)
+    })
     .then(()=>{
         Swal.fire({
             icon: 'success',
@@ -95,7 +100,8 @@ async function registerUser(){
             }
         })
     })
-    .catch((error) => { msgError.value = error;}); 
+    .catch((error) => { msgError.value = error;});
+    // await injector.profiles.create()
 }
 
 function isFilled(event){

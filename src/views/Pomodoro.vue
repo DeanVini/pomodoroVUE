@@ -1,35 +1,69 @@
 <template>
-<NavBar/>
-<div class="flex flex-col items-center justify-center  w-full h-full">
-
-    <div class="flex">
-        <TimerProgressBar 
-            class="" 
-            :minutes="minutes"
-            :seconds="seconds"
-            @click="decress"
-            :initialTime="initialTime"
-            />
+    <div class="">
+        <div class="w-full flex h-screen">
+            <div class="flex flex-col min-h-min mb-[78px] items-center justify-center w-full">
+                <div :class="started ? 'transition-colors ' + Color()  : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
+                    <div class="p-2 pb-[50px] flex justify-center gap-4">
+                        <BaseButton class="select-none" value="Pomodoro" type="pomodoro" :selected="selectedTime == 1" @click="selectedTime = 1; changePomodoroState()"/>
+                        <BaseButton class="select-none"  value="Descanso" type="pomodoro" :selected="selectedTime == 2" @click="selectedTime = 2; changePomodoroState()"/>
+                        <BaseButton class="select-none"  value="Descanso Longo" type="pomodoro" :selected="selectedTime == 3" @click="selectedTime = 3; changePomodoroState()"/>
+                    </div>
+                    <div class="flex justify-center">
+                        <TimerProgressBar 
+                        class="" 
+                        :profileName="profile.name"
+                        :minutes="minutes"
+                        :startColor="startColor"
+                        :endColor="endColor"
+                        :seconds="seconds"
+                        @click="decress"
+                        :initialTime="initialTime"
+                        :next="next"
+                        />
+                    </div>
+                    <div class="flex pt-[50px] flex-row justify-center mt-3 itens-center w-full gap-6 self-center">
+                        <BaseButton v-if="!started" :color="startColor" class="delay-150  transition" type="start" value="Iniciar" @click="play()"/>
+                        <BaseButton v-else type="stop" :color="startColor" class=" delay-150 transition" value="Parar" widthVal="300" heightVal="50" @click="stop()"/>
+                    </div>
+                </div>
+            </div>
+            <TaskTable/>
         </div>
-    </div>
-    <div class="flex flex-row justify-center itens-center w-full gap-6 self-center">
-        <BaseButton v-if="!started" type="start" value="Iniciar" @click="play()"/>
-        <BaseButton v-else type="stop" value="Parar" widthVal="300" heightVal="50" @click="stop()"/>
+
     </div>
 </template>
 
 <script setup>
 import TimerProgressBar from '../components/TimerProgressBar.vue';
-import NavBar from '../components/NavBar.vue'
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import BaseButton from '../components/Forms/BaseButton.vue';
+import TaskTable from '../components/TaskTable.vue';
+import { injector } from '../utils/injector';
+import userInfoStore from '../store/userInfos';
 
+const userId = ref();
+
+let cycleCount = ref(0);
+let profile = ref({});
 let isFinished = ref(false);
 let started = ref(false);
-let initialTime = ref(1);
-let minutes = ref(initialTime.value);
+let minutes = ref(null);
+let initialTime = ref(null);
 let seconds = ref(0);
-let intervalId = ref(null)
+let intervalId = ref(null);
+let selectedTime = ref(1);
+let startColor = ref()
+let endColor = ref()
+let next = ref(false)
+
+onMounted(async()=>{
+    userId.value = userInfoStore().userInfo.id;
+    await injector.profiles.get(userId.value)
+            .then((response)=>{
+                profile.value = response.data.profileStored[response.data.lastProfile - 1];
+            })
+            changePomodoroState()
+});
 
 function decress(){
     if(minutes.value >= 0 && isFinished.value === false)
@@ -45,17 +79,68 @@ function play(){
 }
 
 function stop(){
+
     clearInterval(intervalId);
     minutes.value = initialTime.value
     seconds.value = 0
     started.value = false;
 }
 
+function changePomodoroState(){
+    stop();
+    if(selectedTime.value == 1){
+        initialTime.value = profile.value.focusTime;
+        startColor.value = "blue"
+        endColor.value = "#e7f8fd" 
+    }else if(selectedTime.value == 2){
+        initialTime.value = profile.value.break;
+        startColor.value = "green"
+        endColor.value = "#e7f8fd"
+    }else{
+        initialTime.value = profile.value.longBreak;
+        startColor.value = "gold"
+        endColor.value = "#e7f8fd"
+    }
+    minutes.value = initialTime.value;
+    seconds.value = 0
+}
+
+function nextCycle(){
+    if(cycleCount.value > 3){
+        initialTime.value = profile.value.longBreak;
+        startColor.value = "gold";
+        endColor.value = "#e7f8fd";
+        cycleCount.value = 0;
+        selectedTime.value = 3;
+    }
+    else if(selectedTime.value == 1){
+        initialTime.value = profile.value.break;
+        startColor.value = "green"
+        endColor.value = "#e7f8fd"
+        selectedTime.value = 2;
+    }else{
+        initialTime.value = profile.value.focusTime;
+        startColor.value = "blue"
+        endColor.value = "#e7f8fd"
+        cycleCount.value++;
+        selectedTime.value = 1;
+    }
+    seconds.value = 0
+    minutes.value = initialTime.value;
+}
+
+function Color() {
+  const colorVariants = {
+    blue: 'border-[#007AB7] border-2',
+    green: 'border-[#489B6D] border-2',
+    gold: 'border-[#F2BA57] border-2',
+  }
+  return(colorVariants[startColor.value])
+}
+
 watch(seconds, ()=>{
-    if(minutes.value === -1){
-        minutes.value = 0;
-        seconds.value = 0;
-        isFinished.value = true;
+    if(minutes.value === 0 && seconds.value === 0){
+        nextCycle();
     }
 
     if(seconds.value < 0){
@@ -63,4 +148,5 @@ watch(seconds, ()=>{
         minutes.value -= 1;
     }
 })
+
 </script>
