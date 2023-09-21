@@ -6,7 +6,7 @@
                 <div class="flex flex-col items-center justify-center gap-6">
                     <div v-for="task in tasksForTable" :key="task.show">
                         <Transition name="bounce">
-                            <Task v-if="task.show" @restart="restartTaskTable(); console.log('1')" :tasks="tasksForTable" :userId="userId" :id="task.id" :show="task.show" :finished="task.finished" v-show="task" :description="task.description"/>
+                            <Task v-if="task.show" @restart="restartTaskTable()" :tasks="tasksForTable" :userId="userId" :id="task.id" :show="task.show" :finished="task.finished" v-show="task" :description="task.description"/>
                         </Transition>
                     </div>
                     <div class="flex flex-col items-center justify-center">
@@ -38,14 +38,11 @@ onMounted(async ()=>{
 
     tasks.value = sortTasks(tasks.value);
     tasksForTable.value = tasks.value
-    
-    console.log('task:',tasks.value)
   })
   
   function addTaskInTable(task){
-    task.show = true
-    console.log("Added task:",task)
-    tasksForTable.value.unshift(task)
+    task.show = true;
+    tasksForTable.value.unshift(task);
     id.value = tasks.value.length + 1;
 }
 
@@ -57,10 +54,6 @@ function sortTasks(taskArray){
   return taskArray.sort((task1) => {
       return task1.finished === false ? -1 : 1;
     });
-}
-
-function print(print){
-    console.log(print)
 }
 
 </script>

@@ -54,7 +54,6 @@ let tasks = {
         return await useAxios("get", `tasks?id=${userId.value}`)
     },
     put: async function(userId, tasks){
-        console.log(tasks)
         return await useAxios("put", `tasks/${userId}`, '', {
             taskStored: tasks
         })
@@ -62,12 +61,10 @@ let tasks = {
     editFinished: async function(userId, taskId, tasks){
         let newTaskArray = tasks 
         newTaskArray.map((task)=>{
-            console.log('Task:', tasks)
             if(task.id === taskId){
                 task.finished = !task.finished
             }
         })
-        console.log('NovoTask:', newTaskArray)
         return await useAxios("put", `tasks/${userId}`, '', {
             taskStored: newTaskArray
         })

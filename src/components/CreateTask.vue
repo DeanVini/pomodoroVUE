@@ -74,9 +74,6 @@ async function confirmTask(){
         clearObj();
         tasksForReq.value = []
     })
-
-    console.log(taskObject);
-
 }
 
 function isFilled(event){

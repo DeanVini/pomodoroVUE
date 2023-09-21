@@ -59,6 +59,4 @@ function Button() {
   }
   return(colorVariants[props.color])
 }
-
-console.log(Button())
 </script>

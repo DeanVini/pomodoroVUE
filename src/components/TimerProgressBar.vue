@@ -70,12 +70,12 @@ const props = defineProps({
 
 let dashoffset = ref(0)
 
-watch(()=>{props.next}, ()=>{dashoffset.value = 283})
-
 watch(() => props.seconds, async (newSeconds) => {
-      if(dashoffset.value === 283){
-        dashoffset.value = 0
-      }else dashoffset.value += (283/(props.initialTime * 60));
+    if(dashoffset.value > 281 || (props.minutes === props.initialTime && props.seconds === 0)){
+      console.log("passou")
+      dashoffset.value = 0
+    }else dashoffset.value += (283/(props.initialTime * 60));
+    console.log(dashoffset.value)
   });
 
 function formatTime(number){

@@ -2,11 +2,11 @@
     <div class="">
         <div class="w-full flex h-screen">
             <div class="flex flex-col min-h-min mb-[78px] items-center justify-center w-full">
-                <div :class="started ? `transition-colors border-[${startColor}] border-2` : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
+                <div :class="started ? 'transition-colors ' + Color()  : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
                     <div class="p-2 pb-[50px] flex justify-center gap-4">
-                        <BaseButton value="Pomodoro" type="pomodoro" :selected="selectedTime == 1" @click="selectedTime = 1; changePomodoroState()"/>
-                        <BaseButton value="Descanso" type="pomodoro" :selected="selectedTime == 2" @click="selectedTime = 2; changePomodoroState()"/>
-                        <BaseButton value="Descanso Longo" type="pomodoro" :selected="selectedTime == 3" @click="selectedTime = 3; changePomodoroState()"/>
+                        <BaseButton class="select-none" value="Pomodoro" type="pomodoro" :selected="selectedTime == 1" @click="selectedTime = 1; changePomodoroState()"/>
+                        <BaseButton class="select-none"  value="Descanso" type="pomodoro" :selected="selectedTime == 2" @click="selectedTime = 2; changePomodoroState()"/>
+                        <BaseButton class="select-none"  value="Descanso Longo" type="pomodoro" :selected="selectedTime == 3" @click="selectedTime = 3; changePomodoroState()"/>
                     </div>
                     <div class="flex justify-center">
                         <TimerProgressBar 
@@ -58,7 +58,6 @@ let next = ref(false)
 
 onMounted(async()=>{
     userId.value = userInfoStore().userInfo.id;
-    console.log(userId.value)
     await injector.profiles.get(userId.value)
             .then((response)=>{
                 profile.value = response.data.profileStored[response.data.lastProfile - 1];
@@ -103,36 +102,44 @@ function changePomodoroState(){
         endColor.value = "#e7f8fd"
     }
     minutes.value = initialTime.value;
+    seconds.value = 0
 }
 
 function nextCycle(){
-    stop();
-    next.value = !next.value
     if(cycleCount.value > 3){
         initialTime.value = profile.value.longBreak;
         startColor.value = "gold";
         endColor.value = "#e7f8fd";
         cycleCount.value = 0;
-        selectedTime == 3;
+        selectedTime.value = 3;
     }
     else if(selectedTime.value == 1){
         initialTime.value = profile.value.break;
         startColor.value = "green"
         endColor.value = "#e7f8fd"
-        selectedTime == 2;
+        selectedTime.value = 2;
     }else{
         initialTime.value = profile.value.focusTime;
         startColor.value = "blue"
         endColor.value = "#e7f8fd"
         cycleCount.value++;
-        selectedTime == 1;
+        selectedTime.value = 1;
     }
+    seconds.value = 0
     minutes.value = initialTime.value;
 }
 
+function Color() {
+  const colorVariants = {
+    blue: 'border-[#007AB7] border-2',
+    green: 'border-[#489B6D] border-2',
+    gold: 'border-[#F2BA57] border-2',
+  }
+  return(colorVariants[startColor.value])
+}
+
 watch(seconds, ()=>{
-    console.log(minutes.value)
-    if(minutes.value === -1){
+    if(minutes.value === 0 && seconds.value === 0){
         nextCycle();
     }
 
@@ -141,4 +148,5 @@ watch(seconds, ()=>{
         minutes.value -= 1;
     }
 })
+
 </script>

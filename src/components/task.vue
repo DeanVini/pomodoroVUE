@@ -49,7 +49,6 @@ const props = defineProps({
 //todo: Create an API to improve way to edit this information
 async function changeFinished(){
   props.finished= !props.finished;
-  console.log('UserId: ', props.userId, '\nTaskId: ', props.id, '\nIsFinished: ', props.finished);
   await injector.tasks.editFinished(props.userId, props.id, props.tasks);
 
   emit('restart')
