@@ -13,5 +13,6 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 - ~~Create registration page~~
 - ~~Make register page functional~~
 - Create pomodoro's page
+- Edit selected profile
 - Create profile page
 - Create pomodoro's home page
