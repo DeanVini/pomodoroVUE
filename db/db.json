@@ -21,21 +21,10 @@
     {
       "taskStored": [
         {
-          "description": "teset",
-          "finished": false,
-          "show": true,
-          "id": 2
-        },
-        {
           "description": "FULLSTACK",
           "finished": false,
-          "show": true
-        },
-        {
-          "description": "aaaaa",
-          "finished": false,
           "show": true,
-          "id": 3
+          "id": 5
         },
         {
           "description": "Desenvolver o PomodoroVUE",
@@ -48,6 +37,18 @@
           "finished": false,
           "show": true,
           "id": 4
+        },
+        {
+          "description": "aaaaa",
+          "finished": false,
+          "show": true,
+          "id": 3
+        },
+        {
+          "description": "teset",
+          "finished": false,
+          "show": true,
+          "id": 2
         }
       ],
       "id": 1
@@ -63,9 +64,9 @@
       "profileStored": [
         {
           "name": "Default",
-          "focusTime": 25,
+          "focusTime": 5,
           "break": 5,
-          "longBreak": 15,
+          "longBreak": 5,
           "id": 1
         }
       ],

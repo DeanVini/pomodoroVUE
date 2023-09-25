@@ -4,9 +4,9 @@
             <div class="flex flex-col min-h-min mb-[78px] items-center justify-center w-full">
                 <div :class="started ? 'transition-colors ' + Color()  : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
                     <div class="p-2 pb-[50px] flex justify-center gap-4">
-                        <BaseButton class="select-none" value="Pomodoro" type="pomodoro" :selected="selectedTime == 1" @click="selectedTime = 1; changePomodoroState()"/>
-                        <BaseButton class="select-none"  value="Descanso" type="pomodoro" :selected="selectedTime == 2" @click="selectedTime = 2; changePomodoroState()"/>
-                        <BaseButton class="select-none"  value="Descanso Longo" type="pomodoro" :selected="selectedTime == 3" @click="selectedTime = 3; changePomodoroState()"/>
+                        <BaseButton value="Pomodoro" type="pomodoro" :selected="selectedTime == 1" @click="selectedTime = 1; changePomodoroState()"/>
+                        <BaseButton value="Descanso" type="pomodoro" :selected="selectedTime == 2" @click="selectedTime = 2; changePomodoroState()"/>
+                        <BaseButton value="Descanso Longo" type="pomodoro" :selected="selectedTime == 3" @click="selectedTime = 3; changePomodoroState()"/>
                     </div>
                     <div class="flex justify-center">
                         <TimerProgressBar 

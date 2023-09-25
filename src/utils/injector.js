@@ -68,6 +68,17 @@ let tasks = {
         return await useAxios("put", `tasks/${userId}`, '', {
             taskStored: newTaskArray
         })
+    },
+    editDescription: async function(userId, taskId, tasks, description){
+        let newTaskArray = tasks
+        newTaskArray.map((task)=>{
+            if(task.id === taskId){
+                task.description = description;
+            }
+        })
+        return await useAxios("put", `tasks/${userId}`, '',{
+            taskStored: newTaskArray
+        })
     }
 }
 

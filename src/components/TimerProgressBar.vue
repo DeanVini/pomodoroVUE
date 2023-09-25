@@ -71,7 +71,7 @@ const props = defineProps({
 let dashoffset = ref(0)
 
 watch(() => props.seconds, async (newSeconds) => {
-    if(dashoffset.value > 281 || (props.minutes === props.initialTime && props.seconds === 0)){
+    if(dashoffset.value > 283 - (283/(props.initialTime * 60)) || (props.minutes === props.initialTime && props.seconds === 0)){
       console.log("passou")
       dashoffset.value = 0
     }else dashoffset.value += (283/(props.initialTime * 60));
