@@ -1,17 +1,9 @@
 <template>
-    <div :class="opened ? 'border border-[#333333] rounded-t-md shadow-[#333]' : 'shadow-lg shadow-[#333] border-[#333333] items-center p-2 border rounded-md bg-[#333]'" class="w-96 h-[70px] flex just items-center p-2 bg-[#333]">
-        <Transition name="fade" >
-            <img @click="opened = false" v-show="opened" class="absolute duration-75 cursor-pointer transition mr-1" src="./../assets/circle-minus-svgrepo-com.svg" alt="">
-        </Transition>
-        <Transition name="fade">
-            <img @click="opened = true" v-show="!opened" class="absolute  duration-75 cursor-pointer transition mr-1" src="./../assets/circle-plus-svgrepo-com.svg" alt="">
-        </Transition>
-        <Transition name="fade" mode="out-in">
-            <div v-if="opened" class="transition absolute ml-[2.32rem] w-[16.5%]">
-                <BaseInput type="task" @input="isFilled" @update="(event) => {inputValue = event}"/>
-            </div>
-        </Transition>
-    </div>
+    <Transition name="fade" mode="out-in">
+        <div class="transition absolute ml-[2rem] w-[16.5%]">
+            <BaseInput type="task" :value="description" @input="isFilled" @update="(event) => {newDescription = event}"/>
+        </div>
+    </Transition>
 </template>
 
 
@@ -43,48 +35,33 @@ const props = defineProps({
     canceled:{
         type: Boolean
     }
+ })
+
+ const emit = defineEmits(['finished']);
+ let newDescription = ref()
+
+
+onMounted(()=>{
+    newDescription.value = props.description;
+    if(props.confirmed){
+        confirmTask();
+    }
 })
 
-let inputValue = ref()
-let tasksForReq = ref([])
-let tasks = ref(props.description)
 
-const emit = defineEmits(['newTask'])
+watch(newDescription, ()=>{
+    confirmTask()
+})
 
 async function confirmTask(){
-    tasksForReq.value = tasksForReq.value.concat(props.tasks);
+    let response = await injector.tasks.editDescription(props.userId, props.id, props.tasks, props.description)
 
-    taskObject.description = inputValue.value;
-    taskObject.finished = false;
-    taskObject.show = true;
-    taskObject.id = props.id
-
-    tasksForReq.value.push(taskObject);
-
-    
-    await injector.tasks.put(props.userId, tasksForReq.value).then(()=>{
-        opened.value = false;
-        taskObject.show = false
-        emit('newTask', {
-            ...taskObject
-        })
-        clearObj();
-        tasksForReq.value = []
-    })
+    console.log(response)
 }
 
 function isFilled(event){
     if(event.length > 0){
 
-    }
-}
-
-function clearObj(){
-    taskObject = {
-        description: null,
-        finished: null,
-        show: null,
-        id: null
     }
 }
 

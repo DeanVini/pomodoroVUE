@@ -1,9 +1,9 @@
 <template>
     <transition name="bounce">
       <div v-show="show" :key="show">
-        <div :class="edit ? 'border border-[#333333] items-center rounded-t-md shadow-[#333]' : 'shadow-lg shadow-[#333] border-[#333333] items-center border rounded-md bg-[#333]'" class="w-96 h-[70px] flex justify-between p-2 bg-[#333]">
-          <div class="flex">
-            <div class="mr-1">
+        <div :class="edit ? 'border border-[#333333] items-center rounded-t-md' : 'shadow-lg shadow-[#333] border-[#333333] items-center border rounded-md bg-[#333]'" class="w-96 h-[70px] flex justify-between p-2 bg-[#333]">
+          <div class="flex w-full h-full mt-[18px]">
+            <div class="mr-1 mt-[5px]">
               <Transition name="fade">
                 <div v-show="!edit" class="absolute duration-75 cursor-pointer transition mr-1">
                   <Transition name="iconBounce">
@@ -12,33 +12,33 @@
                   </Transition>
                 </div>
               </Transition>
-
               <Transition name="fade">
-                <div v-show="edit">
-                  <img @click="edit = !edit" class="absolute duration-75 cursor-pointer transition mr-1" src="./../assets/circle-minus-svgrepo-com.svg" alt="">
+                <div v-show="edit" class="mb-10">
+                  <div class="absolute duration-75 cursor-pointer transition">
+                    <Icon @click="edit = !edit" class="cursor-pointer mb-" type="minus"/>
+                  </div>
                 </div>
-              </Transition>
-              
+                </Transition>
             </div>
-            <transition name="fade">
-              <p v-show="!edit" :class="finished ? 'line-through text-gray-400' : ''" class="truncate self-center mt-[3px] ml-8">{{ description }}</p>
+            <transition>
+              <div v-show="!edit" class=" mt-[9px] h-full ml-8 ">
+                <p :class="finished ? 'line-through text-gray-400' : ''" class="truncate">{{ description }}</p>
+              </div>
             </transition>
-            <Transition>
-
+            <Transition name="fade">
+              <EditTask v-show="edit" :description="description" :confirmed="confirmed"/>
             </Transition>
           </div>
-          
           <Transition name="fade">
-            <div v-show="!edit" class="mb-10 mr-1">
+            <div v-show="!edit" class="absolute self-center mb-10 ml-[330px]">
               <Icon @click="edit = !edit" class="cursor-pointer" type="threeDots"/>
             </div>
           </Transition>
-          
         </div>
         <Transition name="dropdownTransition">
             <div v-show="edit" class=" w-96 shadow-lg shadow-[#333] h-[70px] flex justify-center gap-3 border-[#333333] items-center p-2 border rounded-b-md bg-[#333]">
-                <BaseButton type="default" value="Confirmar" @click="confirmTask"/>
-                <BaseButton type="default" value="Cancelar" @click="edit = !edit"/>
+                <BaseButton type="default" value="Confirmar" @click="confirmed = true"/>
+                <BaseButton type="default" value="Cancelar" @click="edit = !edit; confirmed=false"/>
             </div>
         </Transition>
 
@@ -51,8 +51,10 @@ import { ref, watch } from "vue";
 import Icon from "./Icon.vue"
 import { injector } from "../utils/injector";
 import EditTask from "./EditTask.vue";
+import BaseButton from "./Forms/BaseButton.vue";
 
 const emit = defineEmits(['restart'])
+let confirmed = ref(false)
 
 const props = defineProps({
   description: {
@@ -114,6 +116,19 @@ async function changeFinished(){
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.dropdownTransition-enter-active,
+.dropdownTransition-leave-active {
+  transition: max-height 2s ease-out;
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.dropdownTransition-enter-from,
+.dropdownTransition-leave-to {
+  max-height: 0;
+  transition: max-height 0s ease-in;
 }
 
 @keyframes bounce-in {

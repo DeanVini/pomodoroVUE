@@ -79,10 +79,14 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    value:{
+        type: String,
+        default: ''
+    }
 
 });
 
-let startValue = ref()
+let startValue = ref(props.value)
 
 function updateValue(event){
     let newValue = event.target.value;
