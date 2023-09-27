@@ -17,4 +17,5 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 - Edit selected profile
 - Create profile page
 - Create pomodoro's home page
+- Delete a task corretly with a api
 - (Important) Remove editFinished and editDescription from "tasks" in the injector and create the same thing in the backend
