@@ -26,7 +26,7 @@
               </div>
             </transition>
             <Transition name="fade">
-              <EditTask v-show="edit" :description="description" :confirmed="confirmed"/>
+              <EditTask @finished="confirmed=false; edit = false; console.log(edit)" v-show="edit" :description="description" :userId="userId" :id="id" :tasks="tasks" :confirmed="confirmed"/>
             </Transition>
           </div>
           <Transition name="fade">
@@ -36,10 +36,15 @@
           </Transition>
         </div>
         <Transition name="dropdownTransition">
-            <div v-show="edit" class=" w-96 shadow-lg shadow-[#333] h-[70px] flex justify-center gap-3 border-[#333333] items-center p-2 border rounded-b-md bg-[#333]">
-                <BaseButton type="default" value="Confirmar" @click="confirmed = true"/>
-                <BaseButton type="default" value="Cancelar" @click="edit = !edit; confirmed=false"/>
-            </div>
+              <div v-show="edit" class=" w-96 shadow-lg shadow-[#333] h-[70px] flex justify-center border-[#333333] items-center p-2 border rounded-b-md bg-[#333]">
+                <div class="flex gap-3">
+                    <BaseButton type="default" value="Confirmar" @click="confirmed = true"/>
+                    <BaseButton type="default" value="Cancelar" @click="edit = !edit; confirmed=false"/>
+                    <div class="cursor-pointer">
+                        <icon type="trash" @click="removeTask()"/>
+                    </div>
+                  </div>
+              </div>
         </Transition>
 
       </div>
@@ -90,6 +95,12 @@ async function changeFinished(){
   props.finished= !props.finished;
   await injector.tasks.editFinished(props.userId, props.id, props.tasks);
 
+  emit('restart')
+}
+
+async function removeTask(){
+  injector.tasks.delete(props.userId,props.id, props.tasks)
+  edit.value = !edit.value
   emit('restart')
 }
 </script>

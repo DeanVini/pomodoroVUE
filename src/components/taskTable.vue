@@ -33,8 +33,9 @@ const id = ref();
 
 onMounted(async ()=>{
     userId.value = userInfoStore().userInfo.id;
-    tasks.value = await injector.tasks.get(userId);
-    tasks.value = tasks.value.data[0].taskStored;
+    tasks.value = await getTasks()
+
+    console.log(tasks.value)
 
     tasks.value = sortTasks(tasks.value);
     tasksForTable.value = tasks.value
@@ -46,7 +47,15 @@ onMounted(async ()=>{
     id.value = tasks.value.length + 1;
 }
 
-function restartTaskTable(){
+async function getTasks(){
+  let response = await injector.tasks.get(userId);
+  response = response.data[0].taskStored;
+  return response
+}
+
+async function restartTaskTable(){
+  tasksForTable.value = await getTasks();
+  console.log(tasksForTable.value);
   tasksForTable.value = sortTasks(tasksForTable.value);
 }
 

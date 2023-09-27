@@ -49,14 +49,16 @@ onMounted(()=>{
 })
 
 
-watch(newDescription, ()=>{
-    confirmTask()
+watch(props, ()=>{
+    if(props.confirmed){
+        confirmTask();
+    }
 })
 
 async function confirmTask(){
-    let response = await injector.tasks.editDescription(props.userId, props.id, props.tasks, props.description)
-
-    console.log(response)
+    await injector.tasks.editDescription(props.userId, props.id, props.tasks, newDescription.value )
+        .then(emit('finished'))
+    
 }
 
 function isFilled(event){

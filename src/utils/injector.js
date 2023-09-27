@@ -79,6 +79,13 @@ let tasks = {
         return await useAxios("put", `tasks/${userId}`, '',{
             taskStored: newTaskArray
         })
+    },
+    delete: async function(userId, taskId, tasks){
+        console.log(tasks)
+        let newTaskArray = tasks.filter((task) => task.id !== taskId)
+        return await useAxios("put", `tasks/${userId}`, '',{
+            taskStored: newTaskArray
+        })
     }
 }
 

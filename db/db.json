@@ -21,13 +21,7 @@
     {
       "taskStored": [
         {
-          "description": "teset",
-          "finished": true,
-          "show": true,
-          "id": 2
-        },
-        {
-          "description": "aaaaa",
+          "description": "bbbb",
           "finished": false,
           "show": true,
           "id": 3
@@ -43,12 +37,6 @@
           "finished": false,
           "show": true,
           "id": 1
-        },
-        {
-          "description": "FULLSTACK",
-          "finished": false,
-          "show": true,
-          "id": 5
         }
       ],
       "id": 1
