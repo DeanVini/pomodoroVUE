@@ -53,10 +53,10 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import Icon from "./Icon.vue"
-import { injector } from "../utils/injector";
+import Icon from "../Icon.vue"
 import EditTask from "./EditTask.vue";
-import BaseButton from "./Forms/BaseButton.vue";
+import { injector } from "../../utils/injector";
+import BaseButton from "../Forms/BaseButton.vue";
 
 const emit = defineEmits(['restart'])
 let confirmed = ref(false)
@@ -95,13 +95,13 @@ async function changeFinished(){
   props.finished= !props.finished;
   await injector.tasks.editFinished(props.userId, props.id, props.tasks);
 
-  emit('restart')
+  emit('restart');
 }
 
 async function removeTask(){
   injector.tasks.delete(props.userId,props.id, props.tasks)
   edit.value = !edit.value
-  emit('restart')
+  emit('restart');
 }
 </script>
 

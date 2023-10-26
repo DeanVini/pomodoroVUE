@@ -51,7 +51,7 @@
                    :value="startValue"
                    @input="updateValue" 
                    :class="error ? 'transition duration-700 border border-red-500' :  'transition focus:ring-[#007AB7] focus:border-[#007AB7]' " 
-                   class="focus:outline-none border bg-[#333333]  border-[#4d4d4d] placeholder-white text-white rounded-lg block w-full pl-3 pr-10 p-2.5 h-[45px]" 
+                   class="focus:outline-none border bg-[#333333]  border-[#4d4d4d] placeholder-white text-white rounded-lg block w-[325px] pl-3 pr-10 p-2.5 h-[45px]" 
                    :placeholder="placeholder" 
                    >
         </div>

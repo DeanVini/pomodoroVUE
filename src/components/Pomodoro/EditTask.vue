@@ -9,9 +9,9 @@
 
 <script setup>
 import { onMounted, reactive, ref, watch } from "vue";
-import { injector } from "../utils/injector";
-import BaseButton from "./Forms/BaseButton.vue"
-import BaseInput from "./Forms/BaseInput.vue"
+import { injector } from "../../utils/injector";
+import BaseButton from "../Forms/BaseButton.vue"
+import BaseInput from "../Forms/BaseInput.vue"
 
 const props = defineProps({
     tasks:{

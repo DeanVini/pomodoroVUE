@@ -2,8 +2,9 @@
     <div class="">
         <div class="w-full flex h-screen">
             <div class="flex flex-col min-h-min mb-[78px] items-center justify-center w-full">
-                <div :class="started ? 'transition-colors ' + Color()  : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[585px]">
-                    <div class="p-2 pb-[50px] flex justify-center gap-4">
+                <ModalPomoConfig class="absolute"/>
+                <div :class="started ? 'transition-colors ' + Color()  : ' transition-colors border-2 border-transparent'" class="bg-[#333333] min-w-[550px] rounded-lg w-4/12 h-[620px]">
+                    <div class="p-2 pb-[50px] flex justify-center gap-4 relative">
                         <BaseButton value="Pomodoro" type="pomodoro" :selected="selectedTime == 1" @click="selectedTime = 1; changePomodoroState()"/>
                         <BaseButton value="Descanso" type="pomodoro" :selected="selectedTime == 2" @click="selectedTime = 2; changePomodoroState()"/>
                         <BaseButton value="Descanso Longo" type="pomodoro" :selected="selectedTime == 3" @click="selectedTime = 3; changePomodoroState()"/>
@@ -34,12 +35,14 @@
 </template>
 
 <script setup>
-import TimerProgressBar from '../components/TimerProgressBar.vue';
+import TimerProgressBar from '../components/Pomodoro/TimerProgressBar.vue';
 import { onMounted, ref, watch } from 'vue';
 import BaseButton from '../components/Forms/BaseButton.vue';
-import TaskTable from '../components/TaskTable.vue';
+import TaskTable from '../components/Pomodoro/taskTable.vue';
 import { injector } from '../utils/injector';
 import userInfoStore from '../store/userInfos';
+import ModalPomoConfig from '../components/Pomodoro/ModalPomoConfig.vue';
+import Icon from '../components/Icon.vue';
 
 const userId = ref();
 

@@ -21,12 +21,6 @@
     {
       "taskStored": [
         {
-          "description": "bbbb",
-          "finished": false,
-          "show": true,
-          "id": 3
-        },
-        {
           "description": "ir de F",
           "finished": false,
           "show": true,

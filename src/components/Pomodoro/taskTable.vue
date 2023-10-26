@@ -20,11 +20,11 @@
 </template>
 
 <script setup>
-import Task from './Task.vue';
-import userInfoStore from '../store/userInfos';
+import Task from './task.vue';
+import userInfoStore from '../../store/userInfos';
 import CreateTask from './CreateTask.vue'
 import { onMounted, ref } from 'vue';
-import { injector } from '../utils/injector';
+import { injector } from '../../utils/injector';
 
 const userId = ref();
 const tasks = ref([]);

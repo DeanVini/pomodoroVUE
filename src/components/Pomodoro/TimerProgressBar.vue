@@ -1,8 +1,11 @@
 <template>
-<div class="w-[350px] h-[350px] transition">
-    
+<div class="w-[350px] h-[350px] transition" @mouseover="showTexts = false" @mouseleave="showTexts = true" >
+  <div v-show="!showTexts" class="flex justify-center items-center ">
+    <Icon type="config" class="absolute mt-[350px] ml-2 cursor-pointer"/>
+  </div>  
     <svg viewBox="0 0 98 100" xmlns="http://www.w3.org/2000/svg" class="">
         <g>
+          <g v-show="showTexts">
             <g transform="scale(1.5, 1.5)">
               <text class="transition" fill="#e7f8fd" x="34%" y="25%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
             </g>
@@ -10,26 +13,27 @@
               <text transform="scale(0.5, 0.5)" class="transition" fill="#e7f8fd" x="101%" y="125%" dominant-baseline="middle" text-anchor="middle" id="counterText">Perfil:</text>
               <text font-weight="bold" transform="scale(0.6, 0.6)" class="transition" fill="#e7f8fd" x="84%" y="120%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ profileName }}</text>
             </g>
-            <linearGradient 
-                        id="gradient"
-                        fx="0.99"
-                        fy="0.99"
-                        cx="0.5"
-                        cy="0.5"
-                        r="0.65"
-                        >
-                <stop offset="30%" :stop-color="Color()"></stop>
-                <stop offset="100%" :stop-color="endColor" ></stop>
-            </linearGradient>
-            <circle id="basePath" class=" baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
-                'stroke-width': '3px',
-                'stroke': '#242424'
-            }"/>
-            <circle id="basePath" class=" rotate-270" cx="-50" cy="50" r="45" stroke-linecap="round" :style="{
-                'stroke': 'url(#gradient)',
-                'stroke-dasharray': '283',
-                'stroke-dashoffset': `${dashoffset}` 
-            }"/>
+          </g>
+          <linearGradient 
+                      id="gradient"
+                      fx="0.99"
+                      fy="0.99"
+                      cx="0.5"
+                      cy="0.5"
+                      r="0.65"
+                      >
+              <stop offset="30%" :stop-color="Color()"></stop>
+              <stop offset="100%" :stop-color="endColor" ></stop>
+          </linearGradient>
+          <circle id="basePath" class=" baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
+              'stroke-width': '3px',
+              'stroke': '#242424'
+          }"/>
+          <circle id="basePath" class=" rotate-270" cx="-50" cy="50" r="45" stroke-linecap="round" :style="{
+              'stroke': 'url(#gradient)',
+              'stroke-dasharray': '283',
+              'stroke-dashoffset': `${dashoffset}` 
+          }"/>
         </g>
         
     </svg>
@@ -39,7 +43,7 @@
 
 <script setup>
 import { ref, watch, onMounted, watchPostEffect } from "vue";
-
+import Icon from "../Icon.vue";
 
 const props = defineProps({
     minutes: {
@@ -68,6 +72,7 @@ const props = defineProps({
     }
 })
 
+let showTexts = ref(true)
 let dashoffset = ref(0)
 
 watch(() => props.seconds, async (newSeconds) => {

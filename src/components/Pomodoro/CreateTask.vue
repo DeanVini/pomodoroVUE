@@ -1,10 +1,10 @@
 <template>
     <div :class="opened ? 'border border-[#333333] rounded-t-md shadow-[#333]' : 'shadow-lg shadow-[#333] border-[#333333] items-center p-2 border rounded-md bg-[#333]'" class="w-96 h-[70px] flex just items-center p-2 bg-[#333]">
         <Transition name="fade" >
-            <img @click="opened = false" v-show="opened" class="absolute duration-75 cursor-pointer transition mr-1" src="./../assets/circle-minus-svgrepo-com.svg" alt="">
+            <img @click="opened = false" v-show="opened" class="absolute duration-75 cursor-pointer transition mr-1" src="../../assets/circle-minus-svgrepo-com.svg" alt="">
         </Transition>
         <Transition name="fade">
-            <img @click="opened = true" v-show="!opened" class="absolute  duration-75 cursor-pointer transition mr-1" src="./../assets/circle-plus-svgrepo-com.svg" alt="">
+            <img @click="opened = true" v-show="!opened" class="absolute  duration-75 cursor-pointer transition mr-1" src="../../assets/circle-plus-svgrepo-com.svg" alt="">
         </Transition>
         <Transition name="fade" mode="out-in">
             <h1 @click="opened = !opened" v-if ="!opened" class="cursor-pointer ml-[2.32rem] transition">Clique aqui para adicionar uma nova tarefa...</h1>
@@ -25,9 +25,9 @@
 
 <script setup>
 import { reactive, ref, watch } from "vue";
-import { injector } from "../utils/injector";
-import BaseButton from "./Forms/BaseButton.vue"
-import BaseInput from "./Forms/BaseInput.vue"
+import { injector } from "../../utils/injector";
+import BaseButton from "../Forms/BaseButton.vue";
+import BaseInput from "../Forms/BaseInput.vue"
 
 const props = defineProps({
     tasks:{
