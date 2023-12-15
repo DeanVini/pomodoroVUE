@@ -21,15 +21,10 @@
     {
       "taskStored": [
         {
-          "description": "teset",
+          "description": "ir de F",
           "finished": false,
           "show": true,
-          "id": 2
-        },
-        {
-          "description": "FULLSTACK",
-          "finished": false,
-          "show": true
+          "id": 4
         },
         {
           "description": "aaaaa",
@@ -38,16 +33,26 @@
           "id": 3
         },
         {
+          "description": "FULLSTACK",
+          "finished": false,
+          "show": true
+        },
+        {
+          "description": "teset",
+          "finished": false,
+          "show": true,
+          "id": 2
+        },
+        {
           "description": "Desenvolver o PomodoroVUE",
           "finished": false,
           "show": true,
           "id": 1
         },
         {
-          "description": "ir de F",
+          "description": "Fazer um Backend",
           "finished": false,
-          "show": true,
-          "id": 4
+          "show": true
         }
       ],
       "id": 1
