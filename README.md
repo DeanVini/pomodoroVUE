@@ -1,10 +1,7 @@
-# Vue 3 + Vite
+# Pomodoro VUE
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+An evolution of the project at [DeanVini/projeto_Focus](https://github.com/DeanVini/projeto_Focus), enhancing it into a more refined Pomodoro timer using Vue 3. 
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
 ## TODO List:
 - ~~Create a "API" using Json Server~~
