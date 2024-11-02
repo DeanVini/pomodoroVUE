@@ -24,8 +24,8 @@
             </div>
             
             <div class="flex gap-5 self-center mt-4">
-                <BaseButton type="login" value="Logar" @click="logar()"/>
-                <BaseButton width="100" type="login" value="Registrar-se" @click="router.push('/register')"/>
+                <BaseButton type="default" value="Logar" @click="logar()"/>
+                <BaseButton  type="default" value="Registrar-se" @click="router.push('/register')"/>
             </div>
             </div>
 
@@ -43,11 +43,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import router from "../router";
 import BaseButton from "../components/Forms/BaseButton.vue";
 import BaseInput from "../components/Forms/BaseInput.vue";
 import { injector } from "../utils/injector";
+import userInfoStore from "../store/userInfos";
 
 let error = ref(false)
 let email = ref('');
@@ -56,10 +57,8 @@ let password = ref('');
 
 async function logar(){
     let response = await injector.login.get(email.value, password.value);
-    console.log(response);
-    
     if((response.status == 200 || response.status == 201) && response.data.length > 0){
-        localStorage.setItem('user-info', response.data)
+        localStorage.setItem('user-info', JSON.stringify(response.data[0]));
         router.push('/')
         
         return

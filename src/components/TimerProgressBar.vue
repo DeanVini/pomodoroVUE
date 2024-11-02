@@ -3,10 +3,13 @@
     
     <svg viewBox="0 0 98 100" xmlns="http://www.w3.org/2000/svg" class="">
         <g>
-            <g>
-              <text class="transition" fill="#e7f8fd" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
+            <g transform="scale(1.5, 1.5)">
+              <text class="transition" fill="#e7f8fd" x="34%" y="25%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ formatTime(minutes) }}:{{ formatTime(seconds) }}</text>
             </g>
-
+            <g>
+              <text transform="scale(0.5, 0.5)" class="transition" fill="#e7f8fd" x="101%" y="125%" dominant-baseline="middle" text-anchor="middle" id="counterText">Perfil:</text>
+              <text font-weight="bold" transform="scale(0.6, 0.6)" class="transition" fill="#e7f8fd" x="84%" y="120%" dominant-baseline="middle" text-anchor="middle" id="counterText">{{ profileName }}</text>
+            </g>
             <linearGradient 
                         id="gradient"
                         fx="0.99"
@@ -15,12 +18,12 @@
                         cy="0.5"
                         r="0.65"
                         >
-                <stop offset="30%" stop-color="#0EABD9"></stop>
-                <stop offset="100%" stop-color="#e7f8fd" ></stop>
+                <stop offset="30%" :stop-color="Color()"></stop>
+                <stop offset="100%" :stop-color="endColor" ></stop>
             </linearGradient>
-            <circle id="basePath" class="baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
+            <circle id="basePath" class=" baseTimerCirclePath" cx="50" cy="50" r="45" :style="{
                 'stroke-width': '3px',
-                'stroke': '#333333'
+                'stroke': '#242424'
             }"/>
             <circle id="basePath" class=" rotate-270" cx="-50" cy="50" r="45" stroke-linecap="round" :style="{
                 'stroke': 'url(#gradient)',
@@ -35,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, watch, watchPostEffect } from "vue";
+import { ref, watch, onMounted, watchPostEffect } from "vue";
 
 
 const props = defineProps({
@@ -48,21 +51,31 @@ const props = defineProps({
     initialTime: {
       type: Number,
       required: true
+    },
+    profileName:{
+      type: String,
+      default: "Normal"
+    },
+    startColor:{
+      type: String
+    },
+    endColor:{
+      type: String
+    },
+    next:{
+      type: Boolean,
+      default: false
     }
 })
 
-let dashoffset = ref(283)
-let dashTime = ref(283/(props.initialTime * 60));
-
+let dashoffset = ref(0)
 
 watch(() => props.seconds, async (newSeconds) => {
-    if(props.minutes === props.initialTime && props.seconds === 0){
-      dashoffset.value = 283
-    }
-    else{
-      console.log(dashoffset.value)
-      dashoffset.value -= dashTime.value
-    }
+    if(dashoffset.value > 281 || (props.minutes === props.initialTime && props.seconds === 0)){
+      console.log("passou")
+      dashoffset.value = 0
+    }else dashoffset.value += (283/(props.initialTime * 60));
+    console.log(dashoffset.value)
   });
 
 function formatTime(number){
@@ -71,6 +84,16 @@ function formatTime(number){
     }
     return number;
 }
+
+function Color() {
+  const colorVariants = {
+    blue: "#007AB7",
+    green: "#489B6D",
+    gold: "#F2BA57"
+  }
+  return(colorVariants[props.startColor])
+}
+
 </script>
 
 <style scoped>

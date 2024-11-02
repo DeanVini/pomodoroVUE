@@ -11,9 +11,13 @@
     "backend": "json-server --watch db/db.json"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/vue-fontawesome": "^3.0.5",
     "axios": "^1.4.0",
     "concurrently": "^8.2.0",
     "json-server": "^0.17.3",
+    "lucide-vue-next": "^0.295.0",
     "pinia": "^2.1.4",
     "tw-elements": "^1.0.0-beta2",
     "vue": "^3.3.4",
