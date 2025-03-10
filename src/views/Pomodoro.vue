@@ -37,9 +37,9 @@
 import TimerProgressBar from '../components/TimerProgressBar.vue';
 import { onMounted, ref, watch } from 'vue';
 import BaseButton from '../components/Forms/BaseButton.vue';
-import TaskTable from '../components/TaskTable.vue';
 import { injector } from '../utils/injector';
 import userInfoStore from '../store/userInfos';
+import TaskTable from "../components/taskTable.vue";
 
 const userId = ref();
 
