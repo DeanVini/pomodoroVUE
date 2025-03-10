@@ -2,12 +2,13 @@
   "name": "pomodoro",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run init\" \"npm run backend\"",
     "init": "vite",
     "build": "vite build",
     "backend": "json-server --watch db/db.json",
-    "start": "node server.js"
+    "start": "node server.cjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
