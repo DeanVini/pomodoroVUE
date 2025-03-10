@@ -1,6 +1,8 @@
 import express from "express";
-import { spawn } from "child_process";
+import jsonServer from "json-server";
+import { createProxyMiddleware } from "http-proxy-middleware";
 import path from "path";
+import { spawn } from "child_process";
 
 const app = express();
 const __dirname = path.resolve();
@@ -10,11 +12,13 @@ const jsonServerProcess = spawn("npx", ["json-server", "--watch", "db/db.json", 
   shell: true,
 });
 
-app.use("/api", async (req, res) => {
-  const proxy = await fetch(`http://localhost:4000${req.url}`);
-  const data = await proxy.text();
-  res.send(data);
-});
+app.use(
+  "/api",
+  createProxyMiddleware({
+    target: "http://localhost:4000",
+    changeOrigin: true
+  })
+);
 
 app.use(express.static(path.join(__dirname, "dist")));
 
