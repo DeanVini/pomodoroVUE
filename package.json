@@ -17,6 +17,7 @@
     "axios": "^1.4.0",
     "concurrently": "^8.2.0",
     "express": "^4.21.2",
+    "http-proxy-middleware": "^3.0.3",
     "json-server": "^0.17.3",
     "lucide-vue-next": "^0.295.0",
     "pinia": "^2.1.4",
