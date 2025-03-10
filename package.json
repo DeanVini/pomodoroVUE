@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run init\" \"npm run backend\"",
     "init": "vite",
-    "build": "concurrently \"vite build\" \"serve\"",
+    "build": "concurrently \"vite build\" \"npm run serve\"",
     "preview": "vite preview",
     "backend": "json-server --watch db/db.json",
     "serve": "npm run backend & npx serve -s dist"
