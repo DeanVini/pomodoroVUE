@@ -1,34 +1,29 @@
-import express from "express";
-import jsonServer from "json-server";
-import { createProxyMiddleware } from "http-proxy-middleware";
-import path from "path";
-import { spawn } from "child_process";
+const express = require("express");
+const jsonServer = require("json-server");
+const { createProxyMiddleware } = require("http-proxy-middleware");
+const path = require("path");
 
 const app = express();
-const __dirname = path.resolve();
+const apiServer = jsonServer.create();
+const router = jsonServer.router("db/db.json");
+const middlewares = jsonServer.defaults();
 
-const jsonServerProcess = spawn("npx", ["json-server", "--watch", "db/db.json", "--port", "4000"], {
-  stdio: "inherit",
-  shell: true,
-});
+app.use(express.static("dist")); // Serve o frontend
 
 app.use(
   "/api",
   createProxyMiddleware({
-    target: "http://localhost:4000",
-    changeOrigin: true
+    target: "http://localhost:3001",
+    changeOrigin: true,
   })
 );
 
-app.use(express.static(path.join(__dirname, "dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+apiServer.use(middlewares);
+apiServer.use(router);
+apiServer.listen(3001, () => {
+  console.log("JSON Server rodando na porta 3001");
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+app.listen(3000, () => {
+  console.log("Servidor rodando na porta 3000");
 });
-
-process.on("exit", () => jsonServerProcess.kill());
