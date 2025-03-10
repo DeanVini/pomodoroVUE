@@ -1,6 +1,9 @@
 {
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/server.cjs" }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
 
