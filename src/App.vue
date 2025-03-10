@@ -11,8 +11,8 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import router from "./router";
-import NavBar from "./components/Global/Navbar.vue";
 import { useRoute } from 'vue-router'
+import NavBar from "./components/Global/NavBar.vue";
 
 const route = useRoute()
 
