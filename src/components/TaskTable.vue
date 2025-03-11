@@ -4,14 +4,12 @@
             <div class="p-5 flex flex-col items-start">
                 <h1 class="text-4xl pb-3">Tarefas</h1>
                 <div class="flex flex-col items-center justify-center gap-6">
-                    <div v-for="task in tasksForTable" :key="task.show">
-                        <Transition name="bounce">
-                            <Task v-if="task.show" @restart="restartTaskTable()" :tasks="tasksForTable" :userId="userId" :id="task.id" :show="task.show" :finished="task.finished" v-show="task" :description="task.description"/>
-                        </Transition>
-                    </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <CreateTask @newTask="addTaskInTable" :tasks="tasks" :userId="userId" :id="id"/>
-                    </div>
+                  <TransitionGroup name="list" >
+                    <Task v-for="(task, index) in tasksForTable" :key="index" @restart="restartTaskTable()" :tasks="tasksForTable" :userId="userId" :id="task.id" :show="task.show" :finished="task.finished" :description="task.description"/>
+                  </TransitionGroup>
+                  <div class="flex flex-col items-center justify-center">
+                      <CreateTask @newTask="addTaskInTable" :tasks="tasks" :userId="userId" :id="id"/>
+                  </div>
                 </div>
             </div>
         </div> 
@@ -75,5 +73,23 @@ function sortTasks(taskArray){
   100% {
     transform: scale(1);
   }
+}
+
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
 }
 </style>
