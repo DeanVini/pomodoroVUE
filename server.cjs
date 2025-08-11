@@ -3,7 +3,8 @@ const jsonServer = require("json-server");
 const path = require("path");
 
 const app = express();
-const router = jsonServer.router("db/db.json");
+const dbFile = path.join(__dirname, "db", "db.json");
+const router = jsonServer.router(dbFile);
 const middlewares = jsonServer.defaults();
 
 app.use(express.static(path.join(__dirname, "dist")));
@@ -15,4 +16,3 @@ app.get("*", (req, res) => {
 });
 
 module.exports = app;
-
