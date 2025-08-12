@@ -4,22 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run init\" \"npm run backend\"",
-    "init": "vite",
+    "dev": "vite",
     "build": "vite build",
-    "backend": "json-server --watch db/db.json",
-    "start": "node server.cjs"
-  }
-,
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "axios": "^1.4.0",
-    "concurrently": "^8.2.0",
-    "express": "^4.21.2",
-    "http-proxy-middleware": "^3.0.3",
-    "json-server": "^0.17.3",
     "lucide-vue-next": "^0.295.0",
     "pinia": "^2.1.4",
     "tw-elements": "^1.0.0-beta2",

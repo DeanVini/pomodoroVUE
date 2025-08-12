@@ -78,30 +78,28 @@ async function registerUser(){
    
     sameUsername = false;
     sameEmail = false;
-    await injector.register.post(userForReq)
-    .then(async response => {
-        const id = response.data.id;
-        await injector.profiles.create(id)
-        await injector.tasks.create(id)
-    })
-    .then(()=>{
-        Swal.fire({
-            icon: 'success',
-            title: 'Registrado com sucesso!',
-            confirmButtonColor: '#007AB7',
-            confirmButtonText: 'Ir para o Login',
-            color: '#F4FCFD',
-            background: '#353535',
-            text: '',
-            allowOutsideClick: 'false',
-        }).then((result) => {
-            if(result.isConfirmed){
-                router.push("/login");
+    try {
+        await injector.register.post(userForReq)
+        .then(async response => {
+            const loginResponse = await injector.login.post(userForReq.username, userForReq.password);
+            if (loginResponse.status === 200) {
+                await injector.profiles.create();
+                await injector.tasks.create();
             }
         })
-    })
-    .catch((error) => { msgError.value = error;});
-    // await injector.profiles.create()
+        .then(()=>{
+            Swal.fire({
+                icon: 'success',
+                title: 'Registrado com sucesso!',
+                confirmButtonColor: '#007AB7',
+            }).then(() => {
+                router.push('/');
+            });
+        })
+    } catch (error) {
+        msgError.value = error;
+        console.error('Erro no registro:', error);
+    }
 }
 
 function isFilled(event){

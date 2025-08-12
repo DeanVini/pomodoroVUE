@@ -3,14 +3,10 @@ const getApiUrl = () => {
     return import.meta.env.VITE_API_HOST || 'http://localhost:3000';
   }
 
-  if (typeof window !== 'undefined') {
-    return window.location.origin;
-  }
-
-  return 'https://pomodoro-vue-mu.vercel.app';
+  return 'https://api.pomovue.deanvinici.us';
 };
 
 export const API_BASE_URL = getApiUrl();
-export const API_URL = `${API_BASE_URL}/api`;
+export const API_URL = API_BASE_URL;
 
 console.log('API URL configurada:', API_URL);

@@ -15,13 +15,29 @@ const defaultProfile = {
     ]
 }
 
-async function useAxios(tipo, entidade, params = "", dados = "", headerOption) {
+function getAuthToken() {
+    return localStorage.getItem('access_token');
+}
+
+function getAuthHeaders() {
+    const token = getAuthToken();
+    return token ? {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    } : {
+        'Content-Type': 'application/json'
+    };
+}
+
+async function useAxios(tipo, entidade, params = "", dados = "", customHeaders = null) {
     try {
+        const headers = customHeaders || getAuthHeaders();
+
         return await axios({
             method: tipo,
             url: BASE_URL + "/" + entidade + params,
             data: dados,
-            headers: headerOption
+            headers: headers
         })
 
     } catch (error) {
@@ -34,59 +50,102 @@ let register = {
         if(!isValidReq(data)){
             throw("Preencha todos os campos!")
         }
-        if(await checkDBForUsername(data.username)){
-            throw("Nome de usuário já utilizado por outra pessoa!")
+
+        const response = await useAxios("post", "users", "", data);
+
+        if (response.status === 409) {
+            throw("Nome de usuário ou email já utilizado por outra pessoa!");
         }
-        if(await checkDBForEmail(data.email)){
-            throw("O e-mail informado já foi utilizado por outra pessoa!")
+
+        if (response.status === 400) {
+            throw("Dados inválidos!");
         }
-        return await useAxios("post", "users", "", data)
+
+        return response;
     }
 }
 
 let tasks = {
-    create: async function(userId){
-        return await useAxios("post", "tasks", "", {
-            id: userId,
+    create: async function(){
+        const taskData = {
             taskStored: []
-        })
+        };
+
+        return await useAxios("post", "tasks", "", taskData);
     },
-    get: async function(userId){
-        return await useAxios("get", `tasks?id=${userId.value}`)
+    get: async function(){
+        return await useAxios("get", "tasks");
     },
-    put: async function(userId, tasks){
-        return await useAxios("put", `tasks/${userId}`, '', {
+    put: async function(tasks){
+        return await useAxios("patch", "tasks", '', {
             taskStored: tasks
-        })
+        });
     },
-    editFinished: async function(userId, taskId, tasks){
-        let newTaskArray = tasks 
-        newTaskArray.map((task)=>{
-            if(task.id === taskId){
-                task.finished = !task.finished
+    editFinished: async function(taskId, tasks){
+        let newTaskArray = [...tasks];
+        newTaskArray = newTaskArray.map((task, index) => {
+            if(index === taskId){
+                return { ...task, finished: !task.finished };
             }
-        })
-        return await useAxios("put", `tasks/${userId}`, '', {
+            return task;
+        });
+
+        return await useAxios("patch", "tasks", '', {
             taskStored: newTaskArray
-        })
+        });
+    },
+    delete: async function(){
+        return await useAxios("delete", "tasks");
     }
 }
 
 let profiles = {
-    create: async function(userId){
-        return await useAxios("post", "profiles", "", {
-            id: userId,
-            ...defaultProfile
-        })
+    create: async function(){
+        return await useAxios("post", "profiles", "", defaultProfile);
     },
-    get: async function(userId){
-        return await useAxios("get", `profiles/${userId}`, "");
+    get: async function(){
+        return await useAxios("get", "profiles");
+    },
+    update: async function(profileData){
+        return await useAxios("patch", "profiles", "", profileData);
+    },
+    delete: async function(){
+        return await useAxios("delete", "profiles");
     }
 }
 
 let login = {
-    get: async function(email, password){
-        return await useAxios("get", `users?email=${email}&password=${password}`, "")
+    post: async function(username, password){
+        const response = await useAxios("post", "auth/login", "", {
+            username,
+            password
+        });
+
+        if (response.status === 200 && response.data.access_token) {
+            localStorage.setItem('access_token', response.data.access_token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+        }
+
+        return response;
+    },
+    logout: function(){
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
+    }
+}
+
+let users = {
+    findAll: async function(){
+        return await useAxios("get", "users");
+    },
+    findOne: async function(id){
+        return await useAxios("get", `users/${id}`);
+    },
+    update: async function(id, data){
+        return await useAxios("patch", `users/${id}`, "", data);
+    },
+    delete: async function(id){
+        return await useAxios("delete", `users/${id}`);
     }
 }
 
@@ -95,30 +154,20 @@ function isValidReq(req){
         if(value == null || value == ""){
             return false;
         }
-        if(req.password.length < 8){
+        if(req.password && req.password.length < 8){
             throw("Sua senha precisa ter pelo menos 8 caracteres!")
         }
         return true;
     })
 }
 
-
-async function checkDBForEmail(email){
-    let response = await useAxios("get", `users?email=${email}`, "");
-
-    if((response.status == 200 || response.status == 200) && response.data.length > 0){
-        return true;
-    }
-    return false;
+function isAuthenticated(){
+    return !!getAuthToken();
 }
 
-async function checkDBForUsername(username){
-    let response = await useAxios("get", `users?username=${username}`, "");
-
-    if((response.status == 200 || response.status == 201) && response.data.length > 0){
-        return true;
-    }
-    return false;
+function getCurrentUser(){
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
 }
 
-export const injector = {profiles, tasks, login, register, useAxios}
+export const injector = {profiles, tasks, login, register, users, useAxios, isAuthenticated, getCurrentUser}

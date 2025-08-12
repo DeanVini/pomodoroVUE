@@ -30,14 +30,20 @@ const tasksForTable = ref([])
 const id = ref();
 
 onMounted(async ()=>{
-    userId.value = userInfoStore().userInfo.id;
-    tasks.value = await injector.tasks.get(userId);
-    tasks.value = tasks.value.data[0].taskStored;
+    try {
+        const response = await injector.tasks.get();
+        if (response.status === 200 && response.data) {
+            tasks.value = response.data.taskStored || [];
+            tasks.value = sortTasks(tasks.value);
+            tasksForTable.value = tasks.value;
+        }
+    } catch (error) {
+        console.error('Erro ao carregar tasks:', error);
+        tasks.value = [];
+        tasksForTable.value = [];
+    }
+})
 
-    tasks.value = sortTasks(tasks.value);
-    tasksForTable.value = tasks.value
-  })
-  
   function addTaskInTable(task){
     task.show = true;
     tasksForTable.value.unshift(task);

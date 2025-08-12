@@ -65,7 +65,7 @@ async function confirmTask(){
     tasksForReq.value.push(taskObject);
 
     
-    await injector.tasks.put(props.userId, tasksForReq.value).then(()=>{
+    await injector.tasks.put(tasksForReq.value).then(()=>{
         opened.value = false;
         taskObject.show = false
         emit('newTask', {

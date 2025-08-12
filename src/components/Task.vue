@@ -45,11 +45,9 @@ const props = defineProps({
   }
 })
 
-//this is the incorrect way to do this change, but for now is functional
-//todo: Create an API to improve way to edit this information
 async function changeFinished(){
   props.finished= !props.finished;
-  await injector.tasks.editFinished(props.userId, props.id, props.tasks);
+  await injector.tasks.editFinished(props.id, props.tasks);
 
   emit('restart')
 }

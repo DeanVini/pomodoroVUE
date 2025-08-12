@@ -11,11 +11,11 @@
             </div>
 
             <div class="self-center pt-[50px]" >
-                <p v-if="email.length == 0 && password.length == 0 && error" class="text-center mb-4 text-red-500">Preencha todos os campos!!</p>
-                <p v-else-if="error" class="text-center mb-4 text-red-500">Email ou senha inválidos!!</p>
-                <label for="email-address-icon" :class="error ? 'animate-shake-r' :  '' " class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white">Seu Email:</label>
+                <p v-if="username.length == 0 && password.length == 0 && error" class="text-center mb-4 text-red-500">Preencha todos os campos!!</p>
+                <p v-else-if="error" class="text-center mb-4 text-red-500">Username ou senha inválidos!!</p>
+                <label for="username-input" :class="error ? 'animate-shake-r' :  '' " class="block mb-2 text-sm font-medium text-gray-900 pl-1 dark:text-white">Seu Username:</label>
                 <div class="w-[300px]">
-                    <BaseInput  type="email" @update="(event) => {email = event}" @input="isFilled" :error="error" placeholder="name@email.com"/>
+                    <BaseInput type="text" @update="(event) => {username = event}" @input="isFilled" :error="error" placeholder="Seu username"/>
                 </div>
                 <label for="password-adress" :class="error ? 'animate-shake-l' :  '' " class="block mb-2 text-sm font-medium text-gray-900 dark:text-white pl-1 pt-[20px]">Sua Senha:</label>
                 <div>
@@ -51,22 +51,23 @@ import { injector } from "../utils/injector";
 import userInfoStore from "../store/userInfos";
 
 let error = ref(false)
-let email = ref('');
+let username = ref('');
 let password = ref('');
 
 
 async function logar(){
-    let response = await injector.login.get(email.value, password.value);
-    if((response.status == 200 || response.status == 201) && response.data.length > 0){
-        localStorage.setItem('user-info', JSON.stringify(response.data[0]));
-        router.push('/')
-        
-        return
+    try {
+        let response = await injector.login.post(username.value, password.value);
+        if(response.status === 200 && response.data.access_token){
+            await router.push('/')
+            return
+        }
+
+        error.value = true;
+    } catch (err) {
+        error.value = true;
+        console.error('Erro no login:', err);
     }
-
-    error.value = true;
-
-
 }
 
 function isFilled(event){

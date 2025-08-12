@@ -57,12 +57,22 @@ let endColor = ref()
 let next = ref(false)
 
 onMounted(async()=>{
-    userId.value = userInfoStore().userInfo.id;
-    await injector.profiles.get(userId.value)
-            .then((response)=>{
-                profile.value = response.data.profileStored[response.data.lastProfile - 1];
-            })
-            changePomodoroState()
+    try {
+        const response = await injector.profiles.get();
+        if (response.status === 200 && response.data) {
+            profile.value = response.data.profileStored[response.data.last_profile - 1];
+        }
+    } catch (error) {
+        console.error('Erro ao carregar perfil:', error);
+        profile.value = {
+            name: "Default",
+            focusTime: 25,
+            break: 5,
+            longBreak: 15,
+            id: 1
+        };
+    }
+    changePomodoroState()
 });
 
 function decress(){
