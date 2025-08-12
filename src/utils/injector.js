@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_URL } from "../config/api.js";
 
-const BASE_URL = import.meta.env.VITE_API_HOST;
+const BASE_URL = API_URL;
 const defaultProfile = {
     lastProfile: 1,
     profileStored: [
