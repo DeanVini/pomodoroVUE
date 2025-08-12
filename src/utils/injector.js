@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../config/api.js";
+import router from "../router/index.js";
 
 const BASE_URL = API_URL;
 const defaultProfile = {
@@ -116,17 +117,20 @@ let profiles = {
 
 let login = {
     post: async function(username, password){
-        const response = await useAxios("post", "auth/login", "", {
+        const { data } = await useAxios("post", "auth/login", "", {
             username,
             password
         });
 
-        if (response.status === 200 && response.data.access_token) {
-            localStorage.setItem('access_token', response.data.access_token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
+        console.log(data)
+
+        if (data.access_token) {
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            await router.push('/')
         }
 
-        return response;
+        return data;
     },
     logout: function(){
         localStorage.removeItem('access_token');

@@ -57,7 +57,8 @@ let password = ref('');
 
 async function logar(){
     try {
-        let response = await injector.login.post(username.value, password.value);
+        await injector.login.post(username.value, password.value);
+        error.value = true;
     } catch (err) {
         error.value = true;
         console.error('Erro no login:', err);

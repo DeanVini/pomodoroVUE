@@ -33,7 +33,8 @@ const props = defineProps({
 })
 
 function logout(){
-    localStorage.clear();
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
     router.push('/login');
 }
 

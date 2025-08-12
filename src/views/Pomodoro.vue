@@ -44,7 +44,13 @@ import userInfoStore from '../store/userInfos';
 const userId = ref();
 
 let cycleCount = ref(0);
-let profile = ref({});
+let profile = ref({
+    name: "Default",
+    focusTime: 25,
+    break: 5,
+    longBreak: 15,
+    id: 1
+});
 let isFinished = ref(false);
 let started = ref(false);
 let minutes = ref(null);
@@ -60,19 +66,13 @@ onMounted(async()=>{
     try {
         const response = await injector.profiles.get();
         if (response.status === 200 && response.data) {
-            profile.value = response.data.profileStored[response.data.last_profile - 1];
+            profile.value = response.data.profileStored[response.data.last_profile - 1] || profile.value;
         }
     } catch (error) {
         console.error('Erro ao carregar perfil:', error);
-        profile.value = {
-            name: "Default",
-            focusTime: 25,
-            break: 5,
-            longBreak: 15,
-            id: 1
-        };
+    } finally {
+        changePomodoroState();
     }
-    changePomodoroState()
 });
 
 function decress(){
@@ -98,16 +98,18 @@ function stop(){
 
 function changePomodoroState(){
     stop();
-    if(selectedTime.value == 1){
-        initialTime.value = profile.value.focusTime;
+    if (!profile.value) return;
+
+    if(selectedTime.value === 1){
+        initialTime.value = profile.value.focusTime || 25;
         startColor.value = "blue"
         endColor.value = "#e7f8fd" 
-    }else if(selectedTime.value == 2){
-        initialTime.value = profile.value.break;
+    }else if(selectedTime.value === 2){
+        initialTime.value = profile.value.break || 5;
         startColor.value = "green"
         endColor.value = "#e7f8fd"
     }else{
-        initialTime.value = profile.value.longBreak;
+        initialTime.value = profile.value.longBreak || 15;
         startColor.value = "gold"
         endColor.value = "#e7f8fd"
     }
@@ -116,20 +118,22 @@ function changePomodoroState(){
 }
 
 function nextCycle(){
+    if (!profile.value) return;
+
     if(cycleCount.value > 3){
-        initialTime.value = profile.value.longBreak;
+        initialTime.value = profile.value.longBreak || 15;
         startColor.value = "gold";
         endColor.value = "#e7f8fd";
         cycleCount.value = 0;
         selectedTime.value = 3;
     }
-    else if(selectedTime.value == 1){
-        initialTime.value = profile.value.break;
+    else if(selectedTime.value === 1){
+        initialTime.value = profile.value.break || 5;
         startColor.value = "green"
         endColor.value = "#e7f8fd"
         selectedTime.value = 2;
     }else{
-        initialTime.value = profile.value.focusTime;
+        initialTime.value = profile.value.focusTime || 25;
         startColor.value = "blue"
         endColor.value = "#e7f8fd"
         cycleCount.value++;
