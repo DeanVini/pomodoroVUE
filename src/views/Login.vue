@@ -58,12 +58,6 @@ let password = ref('');
 async function logar(){
     try {
         let response = await injector.login.post(username.value, password.value);
-        if(response.status === 200 && response.data.access_token){
-            await router.push('/')
-            return
-        }
-
-        error.value = true;
     } catch (err) {
         error.value = true;
         console.error('Erro no login:', err);
